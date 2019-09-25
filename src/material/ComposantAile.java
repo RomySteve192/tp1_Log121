@@ -18,7 +18,9 @@ public class ComposantAile implements Composant {
         noOfObjects++;
         this.identity = id;
     }
-    
+    public Identity getIdentity(){
+        return this.identity ;
+    }
     public void deplacer(){
         
     }

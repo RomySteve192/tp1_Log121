@@ -85,6 +85,42 @@ public class PanneauPrincipal extends JPanel{
                  g.drawLine(tabPointUsine[0].x, tabPointUsine[0].y, tabPointUsine[1].x, tabPointUsine[1].y);
              }
          }
+         
+         private Boolean Collision(Point point, Composant composant){
+             if(composant instanceof ComposantAile){
+                 ComposantAile compAile = (ComposantAile)composant;
+                 return (point.x == compAile.getIdentity().getPoint().x) && (point.y == compAile.getIdentity().getPoint().y);
+             }else if(composant instanceof ComposantMetal){
+                 ComposantMetal compMetal = (ComposantMetal)composant;
+                 return (point.x == compMetal.getIdentity().getPoint().x) && (point.y == compMetal.getIdentity().getPoint().y);
+             }else if(composant instanceof ComposantAvion){
+                  ComposantAvion compAvion = (ComposantAvion)composant;
+                  return (point.x == compAvion.getIdentity().getPoint().x) && (point.y == compAvion.getIdentity().getPoint().y);
+             }else if(composant instanceof ComposantMoteur){
+                  ComposantMoteur compMoteur = (ComposantMoteur)composant;
+                  return (point.x == compMoteur.getIdentity().getPoint().x) && (point.y == compMoteur.getIdentity().getPoint().y);
+             }
+             return false;
+         }
+         private Boolean isCollision(Usine usine, Composant composant){
+            if(usine instanceof UsineMateriel){
+                UsineMateriel usineMat = (UsineMateriel)usine;
+                return this.Collision(usineMat.getIdentity().getPoint(), composant);
+                
+            }else if(usine instanceof UsineMoteur){
+                UsineMoteur usineMo = (UsineMoteur)usine;
+                return this.Collision(usineMo.getIdentity().getPoint(), composant);
+            }else if(usine instanceof UsineAile){
+                UsineAile usineAile = (UsineAile)usine;
+                return this.Collision(usineAile.getIdentity().getPoint(), composant);
+            }else if(usine instanceof UsineAssemblage){
+                UsineAssemblage usineAss = (UsineAssemblage)usine;
+                return this.Collision(usineAss.getIdentity().getPoint(), composant);
+            }
+             return false;
+         }
+         
+         
 
 
 

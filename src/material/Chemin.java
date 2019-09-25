@@ -73,4 +73,6 @@ public class Chemin {
     public String getVers(){
         return this.vers;
     }
+    
+    public void deplacerComposantSurChemin(Composant composant){}
 }

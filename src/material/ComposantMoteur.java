@@ -19,6 +19,9 @@ public class ComposantMoteur implements Composant {
         this.identity = id;
     }
     
+    public Identity getIdentity(){
+        return this.identity ;
+    }
     public void deplacer(){
         
     }

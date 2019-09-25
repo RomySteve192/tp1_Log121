@@ -40,7 +40,29 @@ public class XmlReader {
         this.doc.getDocumentElement().normalize();
     }
     
-   
+    private Composant getComposantSortie(Element element, Point point){
+        //Element elem1 =  (Element)element.getElementsByTagName("sortie").item(0);
+        ArrayList<Icon> icons = new ArrayList<Icon>();
+        NodeList list = element.getElementsByTagName("sortie");
+        Node nNode = list.item(0);
+        if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+            Element elem = (Element) nNode;
+            if(elem.getAttribute("type").equals("metal")){
+               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/metal.png" ));
+               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+            }else if(elem.getAttribute("type").equals("moteur")){
+               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/moteur.png" ));
+               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+            }else if(elem.getAttribute("type").equals("aile")){
+               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/aile.png" ));
+               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+            }else if(elem.getAttribute("type").equals("avion")){
+               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
+               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+            }
+        }
+        return null;
+    }
     
     private ArrayList<Icon> getArrListIcon(Element element){
        Element elem1 =  (Element)element.getElementsByTagName("icones").item(0); 
@@ -77,6 +99,11 @@ public class XmlReader {
         
         return null;
     }
+    
+    /*private ArrayList<Composant> getarrListComposantEntreeUsine(Element element, String typeUsine){
+        
+        return null;
+    }*/
     
     public ArrayList<Chemin> getListCheminReseau(){
         Element Element1, Element2;
@@ -127,16 +154,16 @@ public class XmlReader {
         Usine usine = null;
         if(type.equals("usine-matiere")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineMateriel(identity, 0);
+            usine = new UsineMateriel(identity, 0, this.getComposantSortie(mainElement1, point));
         }else if(type.equals("usine-aile")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineAile(identity, 0);
+            usine = new UsineAile(identity, 0, this.getComposantSortie(mainElement1, point));
         }else if(type.equals("usine-assemblage")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineAssemblage(identity, 0);
+            usine = new UsineAssemblage(identity, 0, this.getComposantSortie(mainElement1, point));
         }else if(type.equals("usine-moteur")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineMoteur(identity, 0);
+            usine = new UsineMoteur(identity, 0, this.getComposantSortie(mainElement1, point));
         }else if(type.equals("entrepot")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
             usine = new Entrepot(identity, 0);

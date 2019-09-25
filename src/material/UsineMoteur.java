@@ -5,6 +5,8 @@
  */
 package material;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Romy Steve
@@ -13,10 +15,13 @@ public class UsineMoteur implements Usine{
     
     private Identity identity;
     private int intervalleProd;
+    private ArrayList<Composant> composantsEntree;
+    private Composant composantSortie;
     
-    public UsineMoteur(Identity id, int intervalProd){
+    public UsineMoteur(Identity id, int intervalProd, Composant compoSortie){
         this.identity = id;
         this.intervalleProd = intervalProd;
+        this.composantSortie = compoSortie;
     }
 
     public void setIdentity(Identity iden){

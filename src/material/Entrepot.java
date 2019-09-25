@@ -5,6 +5,8 @@
  */
 package material;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Romy Steve
@@ -13,6 +15,8 @@ public class Entrepot implements Usine{
     
     private Identity identity;
     private int capacity;
+    private ArrayList<Composant> composantsEntree;
+    private Composant composantSortie;
     
     public Entrepot(Identity id, int cap){
         this.identity = id;
