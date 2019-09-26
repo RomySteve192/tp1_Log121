@@ -5,6 +5,8 @@
  */
 package material;
 
+import java.awt.Point;
+
 /**
  *
  * @author Romy Steve
@@ -13,13 +15,32 @@ public class ComposantMetal implements Composant {
     
     private Identity identity;
     static int noOfObjects = 0; 
+   private Point position;
+    private Icon icon;
     
-    public ComposantMetal(Identity id){
+    public ComposantMetal(Point pt, Icon ic){
         noOfObjects++;
-        this.identity = id;
+        this.icon = ic;
+        this.position = pt;
+        //this.identity = id;
     }
-    public Identity getIdentity(){
+    /*public Identity getIdentity(){
         return this.identity ;
+    }*/
+    public Icon getIcon(){
+        return this.icon ;
+    }
+    
+    public void setPosition(Point pt){
+        this.position = pt;
+    }
+    
+    public Point getPosition(){
+        return this.position;
+    }
+    
+    public void setIcon(Icon icon){
+        this.icon = icon;
     }
     public void deplacer(){
         

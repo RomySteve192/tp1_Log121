@@ -48,17 +48,17 @@ public class XmlReader {
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
             Element elem = (Element) nNode;
             if(elem.getAttribute("type").equals("metal")){
-               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/metal.png" ));
-               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+               //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/metal.png" ));
+               return new ComposantMetal( point, new Icon(elem.getAttribute("type"),"src/ressources/metal.png" ));
             }else if(elem.getAttribute("type").equals("moteur")){
-               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/moteur.png" ));
-               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+               //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/moteur.png" ));
+               return new ComposantMoteur(point, new Icon(elem.getAttribute("type"),"src/ressources/moteur.png" ));
             }else if(elem.getAttribute("type").equals("aile")){
-               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/aile.png" ));
-               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+              // icons.add(new Icon(elem.getAttribute("type"),"src/ressources/aile.png" ));
+               return new ComposantAile(point, new Icon(elem.getAttribute("type"),"src/ressources/aile.png" ));
             }else if(elem.getAttribute("type").equals("avion")){
-               icons.add(new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
-               return new ComposantMetal(new Identity(elem.getAttribute("type"), "", point, icons));
+               //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
+               return new ComposantAvion( point, new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
             }
         }
         return null;

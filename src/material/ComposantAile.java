@@ -5,22 +5,44 @@
  */
 package material;
 
+import java.awt.Point;
+
 /**
  *
  * @author Romy Steve
  */
 public class ComposantAile implements Composant {
     
-   private Identity identity;
+    private Identity identity;
     static int noOfObjects = 0; 
+    private Point position;
+    private Icon icon;
     
-    public ComposantAile(Identity id){
+    public ComposantAile(Point p, Icon i){
         noOfObjects++;
-        this.identity = id;
+        //this.identity = id;
+        this.position = p;
+        this.icon = i;
     }
-    public Identity getIdentity(){
+    
+    public Icon getIcon(){
+        return this.icon ;
+    }
+    
+    public void setPosition(Point pt){
+        this.position = pt;
+    }
+    
+    public Point getPosition(){
+        return this.position;
+    }
+    
+    public void setIcon(Icon icon){
+        this.icon = icon;
+    }
+    /*public Identity getIdentity(){
         return this.identity ;
-    }
+    }*/
     public void deplacer(){
         
     }

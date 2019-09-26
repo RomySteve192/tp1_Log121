@@ -16,10 +16,12 @@ public class PanneauPrincipal extends JPanel{
 	
 	// Variables temporaires de la demonstration:
         private static final int CONSTANT_X = 5;
-        private static final int CONSTANT_Y = 10;
+        private static final int CONSTANT_Y = 15;
 	private Point position = new Point(0,0);
 	private Point vitesse = new Point(1,1);
+        private Boolean isMove = false;
 	private int taille = 32;
+        private Point posComp;
 	
 	@Override
         // @override
@@ -89,26 +91,26 @@ public class PanneauPrincipal extends JPanel{
          
          private Point getPointComposant(Composant composant){
               if(composant instanceof ComposantAile){
-                 return ((ComposantAile)composant).getIdentity().getPoint();
+                 return ((ComposantAile)composant).getPosition();
              }else if(composant instanceof ComposantMetal){
-                 return ((ComposantMetal)composant).getIdentity().getPoint();
+                 return ((ComposantMetal)composant).getPosition();
              }else if(composant instanceof ComposantAvion){
-                  return ((ComposantAvion)composant).getIdentity().getPoint();
+                  return ((ComposantAvion)composant).getPosition();
              }else if(composant instanceof ComposantMoteur){
-                  return ((ComposantMoteur)composant).getIdentity().getPoint();
+                  return ((ComposantMoteur)composant).getPosition();
              }
              return null;
          }
          
          private String getPathIconComposant(Composant composant){
               if(composant instanceof ComposantAile){
-                 return ((ComposantAile)composant).getIdentity().getIcon().get(0).getPath();
+                 return ((ComposantAile)composant).getIcon().getPath();
              }else if(composant instanceof ComposantMetal){
-                 return ((ComposantMetal)composant).getIdentity().getIcon().get(0).getPath();
+                 return ((ComposantMetal)composant).getIcon().getPath();
              }else if(composant instanceof ComposantAvion){
-                  return ((ComposantAvion)composant).getIdentity().getIcon().get(0).getPath();
+                  return ((ComposantAvion)composant).getIcon().getPath();
              }else if(composant instanceof ComposantMoteur){
-                  return ((ComposantMoteur)composant).getIdentity().getIcon().get(0).getPath();
+                  return ((ComposantMoteur)composant).getIcon().getPath();
              }
              return null;
          }
@@ -128,16 +130,23 @@ public class PanneauPrincipal extends JPanel{
          
          private void setIconComposant(Graphics g, String pathIcon, Point pointDep){
              ImageIcon icon = new ImageIcon(pathIcon);
-             icon.paintIcon(this, g, pointDep.x, pointDep.y);
+             icon.paintIcon(this, g, pointDep.x, pointDep.y - CONSTANT_Y);
          }
          
          private void deplacement(Graphics g, Point pointDep, Point pointFin, String pathIcon){
-             if(pointDep.x < pointFin.x && pointDep.y == pointFin.y){
-                 if(!this.isCollision(pointDep, pointFin)){
-                     pointDep.translate(vitesse.x, 0);
-                     this.setIconComposant(g, pathIcon, pointDep);
+             int x, y;
+             if(this.isMove == false){
+                x = pointDep.x;
+                y = pointDep.y;
+                this.posComp = new Point(pointDep.x, pointDep.y);
+             }
+            // Point pointIni = new Point(x, y);
+             if( this.posComp.x < pointFin.x &&  this.posComp.y == pointFin.y){
+                 if(!this.isCollision(this.posComp, pointFin)){
+                     this.posComp.translate(vitesse.x, 0);
+                     this.setIconComposant(g, pathIcon, this.posComp);
                  }
-             
+                 this.isMove = true;
              }
          }
          
