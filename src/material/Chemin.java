@@ -29,6 +29,48 @@ public class Chemin {
         return ptUsineChemin;
     }
     
+    public Usine[] getUsinesChemin(ArrayList<Usine> usines){
+        Usine[] UsineChemin = new Usine[2];
+        UsineChemin[0] = this.getUsinePointChemin(usines, this.de);
+        UsineChemin[1] = this.getUsinePointChemin(usines, this.vers);
+        return UsineChemin;
+    }
+    private Usine getUsinePointChemin(ArrayList<Usine> usines, String id){
+        for(Usine usine: usines){
+            if(usine instanceof UsineAile){
+                UsineAile usineAile = (UsineAile)usine;
+                if(id.equals(usineAile.getIdentity().getId())){
+                    return usineAile;
+                }
+            
+            }else if(usine instanceof UsineMateriel){
+                UsineMateriel usineMat = (UsineMateriel)usine;
+                if(id.equals(usineMat.getIdentity().getId())){
+                    return usineMat;
+                }
+            
+            }else if(usine instanceof UsineMoteur){
+                UsineMoteur usineMo = (UsineMoteur)usine;
+                if(id.equals(usineMo.getIdentity().getId())){
+                    return usineMo;
+                }
+            
+            }else if(usine instanceof UsineAssemblage){
+                UsineAssemblage usineAss = (UsineAssemblage)usine;
+                if(id.equals(usineAss.getIdentity().getId())){
+                    return usineAss;
+                }
+            
+            }else if(usine instanceof Entrepot){
+                Entrepot entrepot = (Entrepot)usine;
+                if(id.equals(entrepot.getIdentity().getId())){
+                    return entrepot;
+                }
+            }
+        }
+        return null;
+    }
+    
     private Point getPointUsine(ArrayList<Usine> usines, String id){
         
         for(Usine usine: usines){

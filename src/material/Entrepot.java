@@ -16,7 +16,7 @@ public class Entrepot implements Usine{
     private Identity identity;
     private int capacity;
     private ArrayList<Composant> composantsEntree;
-    private Composant composantSortie;
+    private Composant composantSortie = null;
     
     public Entrepot(Identity id, int cap){
         this.identity = id;
@@ -25,7 +25,9 @@ public class Entrepot implements Usine{
     
     public void setIndEtatUsine(Icon icon){
     }
-    
+    public Composant getComposantSortie(){
+        return this.composantSortie;
+    }
     public void setCapacity(int cap){
         this.capacity = cap;
     }

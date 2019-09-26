@@ -40,6 +40,7 @@ public class PanneauPrincipal extends JPanel{
              if(usines != null && chemins != null){
                 this.drawChemin(g, chemins, usines);
                 this.drawUsine(g, usines);
+                this.deplacerLesComposantSurLesChemin(g, chemins, usines);
              }
            
          }
@@ -86,7 +87,83 @@ public class PanneauPrincipal extends JPanel{
              }
          }
          
-         private Boolean Collision(Point point, Composant composant){
+         private Point getPointComposant(Composant composant){
+              if(composant instanceof ComposantAile){
+                 return ((ComposantAile)composant).getIdentity().getPoint();
+             }else if(composant instanceof ComposantMetal){
+                 return ((ComposantMetal)composant).getIdentity().getPoint();
+             }else if(composant instanceof ComposantAvion){
+                  return ((ComposantAvion)composant).getIdentity().getPoint();
+             }else if(composant instanceof ComposantMoteur){
+                  return ((ComposantMoteur)composant).getIdentity().getPoint();
+             }
+             return null;
+         }
+         
+         private String getPathIconComposant(Composant composant){
+              if(composant instanceof ComposantAile){
+                 return ((ComposantAile)composant).getIdentity().getIcon().get(0).getPath();
+             }else if(composant instanceof ComposantMetal){
+                 return ((ComposantMetal)composant).getIdentity().getIcon().get(0).getPath();
+             }else if(composant instanceof ComposantAvion){
+                  return ((ComposantAvion)composant).getIdentity().getIcon().get(0).getPath();
+             }else if(composant instanceof ComposantMoteur){
+                  return ((ComposantMoteur)composant).getIdentity().getIcon().get(0).getPath();
+             }
+             return null;
+         }
+         private void deplacerLesComposantSurLesChemin(Graphics g, ArrayList<Chemin> chemins, ArrayList<Usine> usines){
+             for(Chemin chemin: chemins){
+                Usine[] usineChemin = chemin.getUsinesChemin(usines);
+                Composant compSortieUsineDep = this.getComposantUsine(usineChemin[0]);
+                String pathIcon = this.getPathIconComposant(compSortieUsineDep);
+                Point ptCompSortieUsineDep = this.getPointComposant(compSortieUsineDep);
+                Point ptUsineDest = chemin.getPointUsinesChemin(usines)[1];
+                
+                this.deplacement(g, ptCompSortieUsineDep, ptUsineDest, pathIcon);
+                //ImageIcon icon = new ImageIcon(usineMat.getIdentity().getIcon().get(0).getPath());
+                //icon.paintIcon(this, g, usineMat.getIdentity().getPoint().x - CONSTANT_X, usineMat.getIdentity().getPoint().y - CONSTANT_Y);
+             }
+         }
+         
+         private void setIconComposant(Graphics g, String pathIcon, Point pointDep){
+             ImageIcon icon = new ImageIcon(pathIcon);
+             icon.paintIcon(this, g, pointDep.x, pointDep.y);
+         }
+         
+         private void deplacement(Graphics g, Point pointDep, Point pointFin, String pathIcon){
+             if(pointDep.x < pointFin.x && pointDep.y == pointFin.y){
+                 if(!this.isCollision(pointDep, pointFin)){
+                     pointDep.translate(vitesse.x, 0);
+                     this.setIconComposant(g, pathIcon, pointDep);
+                 }
+             
+             }
+         }
+         
+         private Boolean isCollision(Point pointDep, Point pointFin){
+             if(pointDep.x == pointFin.x && pointDep.y == pointFin.y){
+                return true;
+             }
+             return false;
+         }
+         
+         private Composant getComposantUsine(Usine usine){
+             if(usine instanceof UsineMateriel){
+                 return ((UsineMateriel)usine).getComposantSortie();
+             } else if(usine instanceof UsineAile){
+                 return ((UsineAile)usine).getComposantSortie();
+             } else if(usine instanceof UsineMoteur){
+                 return ((UsineMoteur)usine).getComposantSortie();
+             } if(usine instanceof UsineAssemblage){
+                 return ((UsineAssemblage)usine).getComposantSortie();
+             } if(usine instanceof Entrepot){
+                 return ((Entrepot)usine).getComposantSortie();
+             }
+             return null;
+         }
+         
+         /*private Boolean Collision(Point point, Composant composant){
              if(composant instanceof ComposantAile){
                  ComposantAile compAile = (ComposantAile)composant;
                  return (point.x == compAile.getIdentity().getPoint().x) && (point.y == compAile.getIdentity().getPoint().y);
@@ -118,7 +195,7 @@ public class PanneauPrincipal extends JPanel{
                 return this.Collision(usineAss.getIdentity().getPoint(), composant);
             }
              return false;
-         }
+         }*/
          
          
 

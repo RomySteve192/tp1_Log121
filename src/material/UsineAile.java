@@ -27,6 +27,10 @@ public class UsineAile implements Usine{
     public Identity getIdentity(){
         return this.identity ;
     }
+    
+    public Composant getComposantSortie(){
+        return this.composantSortie;
+    }
     public void setIdentity(Identity iden){
         this.identity = iden;
     }

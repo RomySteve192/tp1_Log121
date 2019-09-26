@@ -27,7 +27,9 @@ public class UsineMoteur implements Usine{
     public void setIdentity(Identity iden){
         this.identity = iden;
     }
-    
+    public Composant getComposantSortie(){
+        return this.composantSortie;
+    }
     public Identity getIdentity(){
         return this.identity ;
     }

@@ -28,6 +28,10 @@ public class UsineMateriel implements Usine {
         this.identity = iden;
     }
     
+    public Composant getComposantSortie(){
+        return this.composantSortie;
+    }
+    
     public Identity getIdentity(){
         return this.identity ;
     }
