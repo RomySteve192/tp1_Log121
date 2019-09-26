@@ -13,7 +13,7 @@ import java.awt.Point;
  */
 public class ComposantMoteur implements Composant {
     
-    //private Identity identity;
+    
     static int noOfObjects = 0;
     private Point position;
     private Icon icon;
@@ -22,12 +22,9 @@ public class ComposantMoteur implements Composant {
         noOfObjects++;
         this.icon = ic;
         this.position = pt;
-        //this.identity = id;
     }
     
-    /*public Identity getIdentity(){
-        return this.identity ;
-    }*/
+    
     public Icon getIcon(){
         return this.icon ;
     }

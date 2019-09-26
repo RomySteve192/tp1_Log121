@@ -13,14 +13,13 @@ import java.awt.Point;
  */
 public class ComposantAile implements Composant {
     
-    private Identity identity;
+    
     static int noOfObjects = 0; 
     private Point position;
     private Icon icon;
     
     public ComposantAile(Point p, Icon i){
         noOfObjects++;
-        //this.identity = id;
         this.position = p;
         this.icon = i;
     }
@@ -40,9 +39,7 @@ public class ComposantAile implements Composant {
     public void setIcon(Icon icon){
         this.icon = icon;
     }
-    /*public Identity getIdentity(){
-        return this.identity ;
-    }*/
+    
     public void deplacer(){
         
     }

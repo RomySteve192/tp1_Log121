@@ -13,9 +13,9 @@ import java.awt.Point;
  */
 public class ComposantMetal implements Composant {
     
-    private Identity identity;
+    
     static int noOfObjects = 0; 
-   private Point position;
+     private Point position;
     private Icon icon;
     
     public ComposantMetal(Point pt, Icon ic){
@@ -24,9 +24,7 @@ public class ComposantMetal implements Composant {
         this.position = pt;
         //this.identity = id;
     }
-    /*public Identity getIdentity(){
-        return this.identity ;
-    }*/
+    
     public Icon getIcon(){
         return this.icon ;
     }
