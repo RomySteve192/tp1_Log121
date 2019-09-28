@@ -40,11 +40,44 @@ public class XmlReader {
         this.doc.getDocumentElement().normalize();
     }
     
-    private Composant getComposantSortie(Element element, Point point){
+    private Composant getComposantSortie(Element element, Point point, String typeUsine){
         //Element elem1 =  (Element)element.getElementsByTagName("sortie").item(0);
-        ArrayList<Icon> icons = new ArrayList<Icon>();
+        
+        NodeList listTypeObjectUsine =  element.getElementsByTagName("usine"); 
+        for(int i = 0; i < listTypeObjectUsine.getLength(); i++){
+            
+            Node nNode = listTypeObjectUsine.item(i);
+            if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                
+                Element elem = (Element) nNode;
+                if(elem.getAttribute("type").equals(typeUsine)){
+                NodeList list = elem.getElementsByTagName("sortie");
+                Node nNode2 = list.item(0);
+        
+                    if (nNode2.getNodeType() == Node.ELEMENT_NODE) {
+                        Element elem2 = (Element) nNode2;
+                        if(elem2.getAttribute("type").equals("metal")){
+                           //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/metal.png" ));
+                           return new ComposantMetal( point, new Icon(elem2.getAttribute("type"),"src/ressources/metal.png" ));
+                        }else if(elem2.getAttribute("type").equals("moteur")){
+                           //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/moteur.png" ));
+                           return new ComposantMoteur(point, new Icon(elem2.getAttribute("type"),"src/ressources/moteur.png" ));
+                        }else if(elem2.getAttribute("type").equals("aile")){
+                          // icons.add(new Icon(elem.getAttribute("type"),"src/ressources/aile.png" ));
+                           return new ComposantAile(point, new Icon(elem2.getAttribute("type"),"src/ressources/aile.png" ));
+                        }else if(elem2.getAttribute("type").equals("avion")){
+                           //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
+                           return new ComposantAvion( point, new Icon(elem2.getAttribute("type"),"src/ressources/avion.png" ));
+                        }
+                    }
+                }
+            }
+        }
+        
+        /*ArrayList<Icon> icons = new ArrayList<Icon>();
         NodeList list = element.getElementsByTagName("sortie");
         Node nNode = list.item(0);
+        
         if (nNode.getNodeType() == Node.ELEMENT_NODE) {
             Element elem = (Element) nNode;
             if(elem.getAttribute("type").equals("metal")){
@@ -60,7 +93,7 @@ public class XmlReader {
                //icons.add(new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
                return new ComposantAvion( point, new Icon(elem.getAttribute("type"),"src/ressources/avion.png" ));
             }
-        }
+        }*/
         return null;
     }
     
@@ -138,6 +171,7 @@ public class XmlReader {
             Node nNode = listUsineReseau.item(i);
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                  Element elem = (Element) nNode;
+                 String test = elem.getAttribute("type");
                  listObjectUsine.add(this.createOjectUsine(elem.getAttribute("type"), elem.getAttribute("id")
                          ,elem.getAttribute("x"), elem.getAttribute("y")));
             }
@@ -152,18 +186,19 @@ public class XmlReader {
         Point point= new Point(Integer.valueOf(x), Integer.valueOf(y));
         Identity identity= new Identity(type, id, point, null);
         Usine usine = null;
+       // this.getComposantSortie(mainElement1, point, type);
         if(type.equals("usine-matiere")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineMateriel(identity, 0, this.getComposantSortie(mainElement1, point));
+            usine = new UsineMateriel(identity, 0, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("usine-aile")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineAile(identity, 0, this.getComposantSortie(mainElement1, point));
+            usine = new UsineAile(identity, 0, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("usine-assemblage")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineAssemblage(identity, 0, this.getComposantSortie(mainElement1, point));
+            usine = new UsineAssemblage(identity, 0, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("usine-moteur")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineMoteur(identity, 0, this.getComposantSortie(mainElement1, point));
+            usine = new UsineMoteur(identity, 0, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("entrepot")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
             usine = new Entrepot(identity, 0);

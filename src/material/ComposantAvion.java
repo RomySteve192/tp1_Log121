@@ -13,7 +13,7 @@ import java.awt.Point;
  */
 public class ComposantAvion implements Composant {
     
-   
+   private Boolean startMove = false;
     static int noOfObjects = 0; 
     private Point position;
     private Icon icon;
@@ -23,7 +23,13 @@ public class ComposantAvion implements Composant {
         this.icon = ic;
         this.position = pt;
     }
-   
+    public void setStartMove(Boolean s){
+        this.startMove = s;
+    }
+    
+    public Boolean getStartMove(){
+        return this.startMove;
+    }
     public Icon getIcon(){
         return this.icon ;
     }

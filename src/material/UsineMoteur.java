@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class UsineMoteur implements Usine{
     
+    
     private Identity identity;
     private int intervalleProd;
     private ArrayList<Composant> composantsEntree;

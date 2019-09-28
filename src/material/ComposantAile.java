@@ -13,7 +13,7 @@ import java.awt.Point;
  */
 public class ComposantAile implements Composant {
     
-    
+    private Boolean startMove = false;
     static int noOfObjects = 0; 
     private Point position;
     private Icon icon;
@@ -24,17 +24,28 @@ public class ComposantAile implements Composant {
         this.icon = i;
     }
     
+     public void setStartMove(Point pt){
+        this.position = pt;
+    }
+     public void setPosition(Point pt){
+        this.position = pt;
+    }
+    public Point getPosition(){
+        return this.position;
+    }
+    
     public Icon getIcon(){
         return this.icon ;
     }
     
-    public void setPosition(Point pt){
-        this.position = pt;
+     public void setStartMove(Boolean s){
+        this.startMove = s;
     }
     
-    public Point getPosition(){
-        return this.position;
+    public Boolean getStartMove(){
+        return this.startMove;
     }
+    
     
     public void setIcon(Icon icon){
         this.icon = icon;

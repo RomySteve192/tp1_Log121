@@ -13,7 +13,7 @@ import java.awt.Point;
  */
 public class ComposantMetal implements Composant {
     
-    
+    private Boolean startMove = false;
     static int noOfObjects = 0; 
      private Point position;
     private Icon icon;
@@ -25,6 +25,13 @@ public class ComposantMetal implements Composant {
         //this.identity = id;
     }
     
+     public void setStartMove(Boolean s){
+        this.startMove = s;
+    }
+    
+    public Boolean getStartMove(){
+        return this.startMove;
+    }
     public Icon getIcon(){
         return this.icon ;
     }
