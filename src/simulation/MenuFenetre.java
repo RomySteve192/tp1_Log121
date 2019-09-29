@@ -59,12 +59,10 @@ public class MenuFenetre extends JMenuBar {
                                 XmlReader file = new XmlReader(selectedFile.getAbsolutePath());
                                 this.usines = file.getListUsineReseau();
                                 this.chemins = file.getListCheminReseau();
-                               // FenetrePrincipale p = new FenetrePrincipale(usines, chemins);
                                
                             }catch(Exception ex){
                                
                             }
-                             //   String st = selectedFile.getAbsolutePath();
 			}
 		});
 		

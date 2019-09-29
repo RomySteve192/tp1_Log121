@@ -28,13 +28,10 @@ public class PanneauPrincipal extends JPanel{
         // @override
          public void paintComponent(Graphics g){
              
-               super.paintComponent(g);
+            super.paintComponent(g);
 		// On ajoute à la position le delta x et y de la vitesse
-		position.translate(vitesse.x, vitesse.y);
-		g.fillRect(position.x, position.y, taille, taille);
-                
-                /*ImageIcon im = new ImageIcon("src/ressources/UMP0%.png");
-                im.paintIcon(this, g, 10, 10);*/
+             position.translate(vitesse.x, vitesse.y);
+             g.fillRect(position.x, position.y, taille, taille);
               
              
              MenuFenetre menuFen = new MenuFenetre();
@@ -188,14 +185,14 @@ public class PanneauPrincipal extends JPanel{
                  
                 if(!this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
                      
-                   this.getPositionComposantSortie(comp).translate(-1, -1);
+                   this.getPositionComposantSortie(comp).translate(-vitesse.x, -vitesse.y);
                    this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(comp));
                 }
                  
              } else if((this.getPositionComposantSortie(comp).x > pointFin.x) && (this.getPositionComposantSortie(comp).y < pointFin.y)){
                  if(!this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
                      
-                   this.getPositionComposantSortie(comp).translate(-1, 1);
+                   this.getPositionComposantSortie(comp).translate(-vitesse.x, vitesse.y);
                    this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(comp));
                 }
              }
