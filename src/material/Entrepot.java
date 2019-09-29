@@ -23,6 +23,8 @@ public class Entrepot implements Usine{
         this.capacity = cap;
     }
     
+    
+    
     public void setIndEtatUsine(Icon icon){
     }
     public Composant getComposantSortie(){

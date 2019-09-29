@@ -17,6 +17,7 @@ public class UsineAssemblage implements Usine{
     private int intervalleProd;
     private ArrayList<Composant> composantsEntree;
     private Composant composantSortie;
+    private Boolean isOneTour = false;
     
     public UsineAssemblage(Identity id, int intervalProd, Composant compoSortie){
         this.identity = id;
@@ -25,6 +26,18 @@ public class UsineAssemblage implements Usine{
     }
     public Identity getIdentity(){
         return this.identity ;
+    }
+    
+    public Boolean getMessageToUsine(){
+        return this.isOneTour;
+    }
+    
+    public int getIntervalProd(){
+        return this.intervalleProd;
+    }
+    
+    public void setMessageToUsine(Boolean oneTour){
+        this.isOneTour = oneTour;
     }
     
     public Composant getComposantSortie(){

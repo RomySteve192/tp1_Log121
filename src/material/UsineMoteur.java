@@ -18,13 +18,25 @@ public class UsineMoteur implements Usine{
     private int intervalleProd;
     private ArrayList<Composant> composantsEntree;
     private Composant composantSortie;
+    private Boolean isOneTour = false;
     
     public UsineMoteur(Identity id, int intervalProd, Composant compoSortie){
         this.identity = id;
         this.intervalleProd = intervalProd;
         this.composantSortie = compoSortie;
     }
-
+    
+    public Boolean getMessageToUsine(){
+        return this.isOneTour;
+    }
+    
+    public void setMessageToUsine(Boolean oneTour){
+        this.isOneTour = oneTour;
+    }
+    
+    public int getIntervalProd(){
+        return this.intervalleProd;
+    }
     public void setIdentity(Identity iden){
         this.identity = iden;
     }
