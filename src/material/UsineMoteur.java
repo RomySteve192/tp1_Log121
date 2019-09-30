@@ -19,11 +19,20 @@ public class UsineMoteur implements Usine{
     private ArrayList<Composant> composantsEntree;
     private Composant composantSortie;
     private Boolean isOneTour = false;
+    private String iconPrincipal;
     
     public UsineMoteur(Identity id, int intervalProd, Composant compoSortie){
         this.identity = id;
         this.intervalleProd = intervalProd;
         this.composantSortie = compoSortie;
+    }
+    
+    public String getIconPrincipal(){
+        return this.iconPrincipal;
+    }
+    
+    public void setIconPrincipal(String ic){
+        this.iconPrincipal = ic;
     }
     
     public Boolean getMessageToUsine(){

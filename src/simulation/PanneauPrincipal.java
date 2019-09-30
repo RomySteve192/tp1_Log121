@@ -23,6 +23,7 @@ public class PanneauPrincipal extends JPanel{
         private Boolean isMove = false;
 	private int taille = 32;
         private Point posComp;
+        private static ArrayList<Usine> usines = null;
 	
 	@Override
         // @override
@@ -32,7 +33,7 @@ public class PanneauPrincipal extends JPanel{
 		// On ajoute à la position le delta x et y de la vitesse
              position.translate(vitesse.x, vitesse.y);
              g.fillRect(position.x, position.y, taille, taille);
-              
+              System.out.println(position.x);
              
              MenuFenetre menuFen = new MenuFenetre();
              ArrayList<Usine> usines = menuFen.getarrListUsine();
@@ -220,7 +221,9 @@ public class PanneauPrincipal extends JPanel{
              return null;
          }
          
-         
+         public static void setListUsine(ArrayList<Usine> usin){
+             usines = usin;
+         }
          
          
 
