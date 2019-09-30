@@ -155,16 +155,16 @@ public class XmlReader {
        // this.getComposantSortie(mainElement1, point, type);
         if(type.equals("usine-matiere")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineMateriel(identity, 0, this.getComposantSortie(mainElement1, point, type));
+            usine = new UsineMateriel(identity, 100, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("usine-aile")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineAile(identity, 0, this.getComposantSortie(mainElement1, point, type));
+            usine = new UsineAile(identity, 50, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("usine-assemblage")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineAssemblage(identity, 0, this.getComposantSortie(mainElement1, point, type));
+            usine = new UsineAssemblage(identity, 110, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("usine-moteur")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new UsineMoteur(identity, 0, this.getComposantSortie(mainElement1, point, type));
+            usine = new UsineMoteur(identity, 75, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("entrepot")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
             usine = new Entrepot(identity, 0);

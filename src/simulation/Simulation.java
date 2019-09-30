@@ -1,5 +1,8 @@
 package simulation;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
 public class Simulation {
 
 	/**
@@ -7,6 +10,14 @@ public class Simulation {
 	 */
 	public static void main(String[] args) {
 		Environnement environnement = new Environnement();
+               /* environnement.addPropertyChangeListener(new PropertyChangeListener() {
+                        public void propertyChange(PropertyChangeEvent evt) {
+                          if ("progress".equals(evt.getPropertyName())) {
+                           System.out.print((String) evt.getNewValue());
+                          }
+                        }
+                      });*/
+                environnement.execute();
 		FenetrePrincipale fenetre = new FenetrePrincipale();
 
 		environnement.addPropertyChangeListener(fenetre);
