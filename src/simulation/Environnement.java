@@ -38,16 +38,25 @@ public class Environnement extends SwingWorker<Object, String> {
         private void testCritereNecessaireProduction(ArrayList<Usine> usines ,int temp ){
             for(Usine usine: usines){
                 if(usine instanceof UsineMateriel){
-                   // ((UsineMateriel)usine).setMessageToUsine(isOneTour);
+                   if( temp == 0.25*((UsineMateriel)usine).getIntervalProd()){
+                       //((UsineMateriel)usine).getIdentity().s;
+                   }
                 } else if(usine instanceof UsineAile){
-                   // ((UsineAile)usine).setMessageToUsine(isOneTour);
+                   if( temp == 0.25*((UsineMateriel)usine).getIntervalProd()){
+                   }
                 } else if(usine instanceof UsineMoteur){
-                   // ((UsineMoteur)usine).setMessageToUsine(isOneTour);
+                   if( temp == 0.25*((UsineMateriel)usine).getIntervalProd()){
+                   }
                 } if(usine instanceof UsineAssemblage){
-                  //  ((UsineAssemblage)usine).setMessageToUsine(isOneTour);
+                  if( temp == 0.25*((UsineMateriel)usine).getIntervalProd()){
+                   }
                 }
             }
         }
+        
+        /*private void checkTempProd(ArrayList<Usine> usines ,int temp ){
+            
+        }*/
         
         
         
