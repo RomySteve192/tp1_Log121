@@ -33,7 +33,7 @@ public class PanneauPrincipal extends JPanel{
 		// On ajoute à la position le delta x et y de la vitesse
              position.translate(vitesse.x, vitesse.y);
              g.fillRect(position.x, position.y, taille, taille);
-              System.out.println(position.x);
+            
              
              MenuFenetre menuFen = new MenuFenetre();
              ArrayList<Usine> usines = menuFen.getarrListUsine();
@@ -50,19 +50,19 @@ public class PanneauPrincipal extends JPanel{
              for(Usine usine: usines){
                   if(usine instanceof UsineMateriel){
                             UsineMateriel usineMat = (UsineMateriel)usine;
-                            ImageIcon icon = new ImageIcon(usineMat.getIdentity().getIcon().get(0).getPath());
+                            ImageIcon icon = new ImageIcon(usineMat.getIconPrincipal());
                             icon.paintIcon(this, g, usineMat.getIdentity().getPoint().x - CONSTANT_X, usineMat.getIdentity().getPoint().y - CONSTANT_Y);
                         } else if (usine instanceof UsineMoteur){
                             UsineMoteur usineMo = (UsineMoteur)usine;
-                            ImageIcon icon = new ImageIcon(usineMo.getIdentity().getIcon().get(0).getPath());
+                            ImageIcon icon = new ImageIcon(usineMo.getIconPrincipal());
                             icon.paintIcon(this, g, usineMo.getIdentity().getPoint().x - CONSTANT_X, usineMo.getIdentity().getPoint().y - CONSTANT_Y);
                         } else if (usine instanceof UsineAssemblage){
                             UsineAssemblage usineAss = (UsineAssemblage)usine;
-                            ImageIcon icon = new ImageIcon(usineAss.getIdentity().getIcon().get(0).getPath());
+                            ImageIcon icon = new ImageIcon(usineAss.getIconPrincipal());
                             icon.paintIcon(this, g, usineAss.getIdentity().getPoint().x - CONSTANT_X, usineAss.getIdentity().getPoint().y - CONSTANT_Y);
                         } else if (usine instanceof UsineAile){
                             UsineAile usineAile = (UsineAile)usine;
-                            ImageIcon icon = new ImageIcon(usineAile.getIdentity().getIcon().get(0).getPath());
+                            ImageIcon icon = new ImageIcon(usineAile.getIconPrincipal());
                             icon.paintIcon(this, g, usineAile.getIdentity().getPoint().x - CONSTANT_X, usineAile.getIdentity().getPoint().y - CONSTANT_Y);
                         } else if(usine instanceof Entrepot){
                             Entrepot entrepot = (Entrepot)usine;

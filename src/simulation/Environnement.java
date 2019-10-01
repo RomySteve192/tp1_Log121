@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javax.swing.SwingWorker;
 import material.*;
 
-public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine>*/> {
+public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>*/> {
 	private boolean actif = true;
 	private static final int DELAI = 100;
         private static final int TOUR = 1000;
@@ -16,10 +16,10 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
 	@Override
 	protected Object doInBackground() throws Exception {
                 int temp = 0;
-                ArrayList<String> listUsine = new ArrayList<String>();
+                ArrayList<Usine> listUsine = new ArrayList<Usine>();
                 MenuFenetre menuFen = new MenuFenetre();
                 ArrayList<Usine> usines = menuFen.getarrListUsine();
-                String[] item = null;
+                Usine[] item = null;
               
                 
 		while(actif) {
@@ -27,13 +27,14 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
                         
                         if(usines != null){
                             listUsine = this.testCritereNecessaireProduction(usines, temp);
-                            //item = listUsine.toArray ( new  String [listUsine.size ()]); 
+                            item = new Usine[listUsine.size()];
+                           // item = listUsine.toArray ( new  String [listUsine.size ()]); 
                             //listUsine = this.testCritereNecessaireProduction(usines, temp);
-                           /* for(int i=0; i<listUsine.size(); i++){
-                                item[i]= listUsine.get(i);
-                            }*/
+                            for(int i=0; i<listUsine.size(); i++){
+                                item[i] = listUsine.get(i);
+                            }
                             String[] t = {"allo", "allo"};
-                            publish(t);
+                            publish(item);
                             temp++;
                             test = temp;
                         if(temp == 104){
@@ -41,7 +42,8 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
                         }
                         }else{
                             usines = menuFen.getarrListUsine();
-                            item = new String[usines.size()];
+                           // 
+                           
                         }
                        /* publish(pathIconUsine);
                         if(temp == 104){
@@ -55,7 +57,7 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
 		return null;
 	}
         
-       protected void process(List<String[]> v) {
+       protected void process(List<Usine[]> v) {
             System.out.print("process() receiving values: "+test +v.get(0));
             /*for(ArrayList<Usine> u: v){
                // PanneauPrincipal.setListUsine(u);
@@ -77,8 +79,8 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
             }
         }
         
-        private ArrayList<String> testCritereNecessaireProduction(ArrayList<Usine> usines ,int temp ){
-            ArrayList<String> tabPath = new ArrayList<String>();
+        private ArrayList<Usine> testCritereNecessaireProduction(ArrayList<Usine> usines ,int temp ){
+            ArrayList<Usine> tabPath = new ArrayList<Usine>();
             String str ="";
             for(Usine usine: usines){
                 if(usine instanceof UsineMateriel){
@@ -97,7 +99,7 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
                        str = ((UsineMateriel)usine).getIdentity().getIcon().get(3).getPath();
                       ((UsineMateriel)usine).setIconPrincipal(str);
                    }
-                    tabPath.add(str);
+                    tabPath.add((UsineMateriel)usine);
                 } else if(usine instanceof UsineAile){
                    if(temp == 0){
                         str = ((UsineAile)usine).getIdentity().getIcon().get(0).getPath();
@@ -113,14 +115,14 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
                        str = ((UsineAile)usine).getIdentity().getIcon().get(3).getPath();
                        ((UsineAile)usine).setIconPrincipal(str);
                    }
-                   tabPath.add(str);
+                   tabPath.add((UsineAile)usine);
                 } else if(usine instanceof UsineMoteur){
                    if(temp == 0){
                         str = ((UsineMoteur)usine).getIdentity().getIcon().get(0).getPath();
                       ((UsineMoteur)usine).setIconPrincipal(str);
                     }else if( temp <= (int)(0.3*((UsineMoteur)usine).getIntervalProd())){
                        str = ((UsineMoteur)usine).getIdentity().getIcon().get(1).getPath();
-                       ((UsineAile)usine).setIconPrincipal(str);
+                       ((UsineMoteur)usine).setIconPrincipal(str);
                    }else if( temp > (int)(0.3*((UsineMoteur)usine).getIntervalProd()) 
                            && temp < (int)((UsineMoteur)usine).getIntervalProd()){
                      str = ((UsineMoteur)usine).getIdentity().getIcon().get(2).getPath();
@@ -129,7 +131,7 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
                       str = ((UsineMoteur)usine).getIdentity().getIcon().get(3).getPath();
                        ((UsineMoteur)usine).setIconPrincipal(str);
                    }
-                   tabPath.add(str);
+                   tabPath.add((UsineMoteur)usine);
                 } if(usine instanceof UsineAssemblage){
                   if(temp == 0){
                         str = ((UsineAssemblage)usine).getIdentity().getIcon().get(0).getPath();
@@ -145,7 +147,7 @@ public class Environnement extends SwingWorker<Object, String[]/*ArrayList<Usine
                      str = ((UsineAssemblage)usine).getIdentity().getIcon().get(3).getPath();
                        ((UsineAssemblage)usine).setIconPrincipal(str);
                    }
-                  tabPath.add(str);
+                  tabPath.add((UsineAssemblage)usine);
                 }
             }
             return tabPath;

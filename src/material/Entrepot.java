@@ -17,13 +17,19 @@ public class Entrepot implements Usine{
     private int capacity;
     private ArrayList<Composant> composantsEntree;
     private Composant composantSortie = null;
-    
+    private String iconPrincipal;
     public Entrepot(Identity id, int cap){
         this.identity = id;
         this.capacity = cap;
     }
     
+     public String getIconPrincipal(){
+        return this.iconPrincipal;
+    }
     
+    public void setIconPrincipal(String ic){
+        this.iconPrincipal = ic;
+    }
     
     public void setIndEtatUsine(Icon icon){
     }
