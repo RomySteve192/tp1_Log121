@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Entrepot implements Usine{
     
     private Identity identity;
-    private int capacity;
+    private int capacity = 5;
     private ArrayList<Composant> composantsEntree = new ArrayList<Composant>();
     private Composant composantSortie = null;
     private String iconPrincipal;
@@ -44,6 +44,10 @@ public class Entrepot implements Usine{
     }
     public void setCapacity(int cap){
         this.capacity = cap;
+    }
+    
+    public int getCapacity(){
+        return this.capacity;
     }
     
     public Identity getIdentity(){

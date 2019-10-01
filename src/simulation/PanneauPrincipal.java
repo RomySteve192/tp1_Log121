@@ -18,12 +18,12 @@ public class PanneauPrincipal extends JPanel{
         private static final int CONSTANT_X = 15;
         private static final int CONSTANT_Y = 15;
 	private Point position = new Point(0,0);
-	private Point vitesse = new Point(1,1);
+	private Point vitesse = new Point(2,2);
         private Point _vitesse = new Point(-1, -1);
         private Boolean isMove = false;
 	private int taille = 32;
         private Point posComp;
-        private static ArrayList<Usine> usines = null;
+        private int nbreAvionEntrepot = 0;
 	
 	@Override
         // @override
@@ -66,7 +66,12 @@ public class PanneauPrincipal extends JPanel{
                             icon.paintIcon(this, g, usineAile.getIdentity().getPoint().x - CONSTANT_X, usineAile.getIdentity().getPoint().y - CONSTANT_Y);
                         } else if(usine instanceof Entrepot){
                             Entrepot entrepot = (Entrepot)usine;
-                            ImageIcon icon = new ImageIcon(entrepot.getIdentity().getIcon().get(0).getPath());
+                            ImageIcon icon;
+                            this.setIconEntrepot(entrepot, this.nbreAvionEntrepot);
+                            
+                            icon = new ImageIcon(entrepot.getIconPrincipal());
+                            
+                            
                             icon.paintIcon(this, g, entrepot.getIdentity().getPoint().x - CONSTANT_X, entrepot.getIdentity().getPoint().y - CONSTANT_Y);
                         }
              }
@@ -262,6 +267,10 @@ public class PanneauPrincipal extends JPanel{
                     this.addComposantEntreUsineDest(usineDest, comp);
                     this.setStatutStartMoveComposantSortie(usineDep, comp, false);
                     this.reinitializePosComp(usineDep,comp);
+                    if(usineDest instanceof Entrepot){
+                         this.nbreAvionEntrepot++;
+                         
+                     }
                 }
                 //this.addComposantSortieUsineDest(usineDest, comp);
                 //this.setStatutStartMoveComposantSortie(comp, true);
@@ -276,6 +285,10 @@ public class PanneauPrincipal extends JPanel{
                     this.addComposantEntreUsineDest(usineDest, comp);
                     this.setStatutStartMoveComposantSortie(usineDep,comp, false);
                      this.reinitializePosComp(usineDep,comp);
+                     if(usineDest instanceof Entrepot){
+                         this.nbreAvionEntrepot++;
+                         
+                     }
                 }
              } else if((this.getPositionComposantSortie(comp).x > pointFin.x) && (this.getPositionComposantSortie(comp).y < pointFin.y)){
                  if(!this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
@@ -287,6 +300,10 @@ public class PanneauPrincipal extends JPanel{
                     this.addComposantEntreUsineDest(usineDest, comp);
                     this.setStatutStartMoveComposantSortie(usineDep,comp, false);
                     this.reinitializePosComp(usineDep,comp);
+                    if(usineDest instanceof Entrepot){
+                         this.nbreAvionEntrepot++;
+                         
+                     }
                 }
              }
          }
@@ -318,9 +335,28 @@ public class PanneauPrincipal extends JPanel{
              return null;
          }
          
-         public static void setListUsine(ArrayList<Usine> usin){
-             usines = usin;
-         }
+        private void setIconEntrepot(Usine usineDest, int nbreAvion){
+            String str;
+            int b = (int)(0.3*((Entrepot) usineDest).getCapacity());
+            if(usineDest instanceof Entrepot){
+                if(nbreAvion == 0){
+                     str = ((Entrepot)usineDest).getIdentity().getIcon().get(0).getPath();
+                    ((Entrepot)usineDest).setIconPrincipal(str);
+                }else if(nbreAvion <= (int)(0.3*((Entrepot) usineDest).getCapacity())){
+                   // int b = (int)(0.3*((Entrepot) usineDest).getCapacity());
+                    str = ((Entrepot)usineDest).getIdentity().getIcon().get(1).getPath();
+                    ((Entrepot)usineDest).setIconPrincipal(str);
+                }else if(nbreAvion <= (int)(0.6*((Entrepot) usineDest).getCapacity())){
+                    str = ((Entrepot)usineDest).getIdentity().getIcon().get(2).getPath();
+                    ((Entrepot)usineDest).setIconPrincipal(str);
+                }else if(nbreAvion == ((Entrepot) usineDest).getCapacity()){
+                    str = ((Entrepot)usineDest).getIdentity().getIcon().get(3).getPath();
+                    ((Entrepot)usineDest).setIconPrincipal(str);
+                }
+            
+            }
+        
+        }
          
          
 

@@ -167,7 +167,7 @@ public class XmlReader {
             usine = new UsineMoteur(identity, 75, this.getComposantSortie(mainElement1, point, type));
         }else if(type.equals("entrepot")){
             identity= new Identity(type, id, point,  this.getarrListIconUsine(mainElement1, type));
-            usine = new Entrepot(identity, 0);
+            usine = new Entrepot(identity, 5);
         }
         
         return usine;
