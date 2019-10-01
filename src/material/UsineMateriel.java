@@ -15,7 +15,7 @@ public class UsineMateriel implements Usine {
     
     private Identity identity;
     private int intervalleProd;
-    private ArrayList<Composant> composantsEntree;
+    private ArrayList<Composant> composantsEntree = new ArrayList<Composant>();
     private Composant composantSortie;
     private Boolean isOneTour = false;
     private String iconPrincipal;
@@ -25,7 +25,13 @@ public class UsineMateriel implements Usine {
         this.intervalleProd = intervalProd;
         this.composantSortie = compoSortie;
     }
+     public ArrayList<Composant> getComposantEntres(){
+        return this.composantsEntree;
+    }
     
+    public void setComposantEntres(Composant comp){
+        this.composantsEntree.add(comp);
+    }
     public String getIconPrincipal(){
         return this.iconPrincipal;
     }

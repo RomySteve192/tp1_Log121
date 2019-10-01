@@ -15,14 +15,20 @@ public class Entrepot implements Usine{
     
     private Identity identity;
     private int capacity;
-    private ArrayList<Composant> composantsEntree;
+    private ArrayList<Composant> composantsEntree = new ArrayList<Composant>();
     private Composant composantSortie = null;
     private String iconPrincipal;
     public Entrepot(Identity id, int cap){
         this.identity = id;
         this.capacity = cap;
     }
+     public ArrayList<Composant> getComposantEntres(){
+        return this.composantsEntree;
+    }
     
+    public void setComposantEntres(Composant comp){
+        this.composantsEntree.add(comp);
+    }
      public String getIconPrincipal(){
         return this.iconPrincipal;
     }
