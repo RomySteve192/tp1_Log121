@@ -13,9 +13,12 @@ import java.util.ArrayList;
  */
 public class UsineAssemblage implements Usine{
     
+    private Boolean canProduct = false;
+    public static final Boolean AcompEntre = true; 
     private Identity identity;
     private int intervalleProd;
     private ArrayList<Composant> composantsEntree = new ArrayList<Composant>();
+     private ArrayList<Composant> listComposantsSortie = new ArrayList<Composant>();
     private Composant composantSortie;
     private Boolean isOneTour = false;
     private String iconPrincipal;
@@ -25,8 +28,25 @@ public class UsineAssemblage implements Usine{
         this.intervalleProd = intervalProd;
         this.composantSortie = compoSortie;
     }
+    
+     public ArrayList<Composant> getlistComposantSorti(){
+        return this.listComposantsSortie;
+    }
+    
+    public void setlistComposantSorti(Composant comp){
+        this.listComposantsSortie.add(comp);
+    }
+    
      public ArrayList<Composant> getComposantEntres(){
         return this.composantsEntree;
+    }
+     
+    public Boolean getCanProduct(){
+        return this.canProduct;
+    }
+    
+     public void setCanProduct(Boolean b){
+        this.canProduct = b;
     }
     
     public void setComposantEntres(Composant comp){

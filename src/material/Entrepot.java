@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Entrepot implements Usine{
     
+    public static final Boolean AcompEntre = true; 
     private Identity identity;
     private int capacity = 5;
     private ArrayList<Composant> composantsEntree = new ArrayList<Composant>();

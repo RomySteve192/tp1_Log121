@@ -6,14 +6,15 @@
 package material;
 
 import java.awt.Point;
+import java.lang.Cloneable;
 
 /**
  *
  * @author Romy Steve
  */
-public class ComposantMetal implements Composant {
+public class ComposantMetal implements Composant, Cloneable {
     
-    private Boolean startMove = false;
+    private Boolean isCollision = false;
     static int noOfObjects = 0; 
      private Point position;
     private Icon icon;
@@ -25,13 +26,22 @@ public class ComposantMetal implements Composant {
         //this.identity = id;
     }
     
-     public void setStartMove(Boolean s){
-        this.startMove = s;
+    @Override
+    public Object clone() {
+        try {
+            ComposantMetal c = (ComposantMetal) super.clone();
+            c.position = (Point)this.position.clone();
+            return c;
+        } catch (CloneNotSupportedException e) {
+            return new ComposantMetal(this.position, this.icon);
+        }
     }
-    
-    public Boolean getStartMove(){
-        return this.startMove;
+      public void setIsCollision(Boolean b){
+        this.isCollision = b;
     }
+     public Boolean getCollision(){
+         return this.isCollision;
+     }
     public Icon getIcon(){
         return this.icon ;
     }

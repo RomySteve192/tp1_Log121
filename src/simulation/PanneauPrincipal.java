@@ -24,6 +24,7 @@ public class PanneauPrincipal extends JPanel{
 	private int taille = 32;
         private Point posComp;
         private int nbreAvionEntrepot = 0;
+        private int nbrecol = 0;
 	
 	@Override
         // @override
@@ -117,29 +118,29 @@ public class PanneauPrincipal extends JPanel{
              }
          }
          
-         private Boolean getStatutStartMoveComposantSortie(Composant composant){
+         private Boolean getStatutIsCollisionComposantSortie(Composant composant){
              if(composant instanceof ComposantAile){
-                 return ((ComposantAile)composant).getStartMove();
+                 return ((ComposantAile)composant).getCollision();
              }else if(composant instanceof ComposantMetal){
-                 return ((ComposantMetal)composant).getStartMove();
+                 return ((ComposantMetal)composant).getCollision();
              }else if(composant instanceof ComposantAvion){
-                 return ((ComposantAvion)composant).getStartMove();
+                 return ((ComposantAvion)composant).getCollision();
              }else if(composant instanceof ComposantMoteur){
-                 return ((ComposantMoteur)composant).getStartMove();
+                 return ((ComposantMoteur)composant).getCollision();
              }
              return false;
          }
          
-         private void setStatutStartMoveComposantSortie(Usine usine, Composant composant, Boolean status){
+         private void setStatutIsCollisionComposantSortie(Usine usine, Composant composant, Boolean status){
              
              if(usine instanceof UsineMateriel){
-                    this.setStatus(composant, status);
+                    this.setStatusIscollision(composant, status);
                 } else if(usine instanceof UsineAile){
-                    this.setStatus(composant, status);
+                    this.setStatusIscollision(composant, status);
                 } else if(usine instanceof UsineMoteur){
-                    this.setStatus(composant, status);
+                    this.setStatusIscollision(composant, status);
                 } if(usine instanceof UsineAssemblage){
-                    this.setStatus(composant, status);
+                    this.setStatusIscollision(composant, status);
                 }
                // this.reinitializePosComp(usine, composant);
              
@@ -148,15 +149,15 @@ public class PanneauPrincipal extends JPanel{
              
          }
          
-         private void setStatus(Composant composant, Boolean status){
+         private void setStatusIscollision(Composant composant, Boolean status){
              if(composant instanceof ComposantAile){
-                  ((ComposantAile)composant).setStartMove(status);
+                  ((ComposantAile)composant).setIsCollision(status);
              }else if(composant instanceof ComposantMetal){
-                ((ComposantMetal)composant).setStartMove(status);
+                ((ComposantMetal)composant).setIsCollision(status);
              }else if(composant instanceof ComposantAvion){
-                 ((ComposantAvion)composant).setStartMove(status);
+                 ((ComposantAvion)composant).setIsCollision(status);
              }else if(composant instanceof ComposantMoteur){
-                 ((ComposantMoteur)composant).setStartMove(status);
+                 ((ComposantMoteur)composant).setIsCollision(status);
              }
          }
          
@@ -173,10 +174,14 @@ public class PanneauPrincipal extends JPanel{
              return null;
          }
          private void deplacerLesComposantSurLesChemin(Graphics g, ArrayList<Chemin> chemins, ArrayList<Usine> usines){
+             int n = 0;
              for(Chemin chemin: chemins){
+                 n++;
                 Usine[] usineChemin = chemin.getUsinesChemin(usines);
                 Composant compSortieUsineDep = this.getComposantUsine(usineChemin[0]);
                 Point ptUsineDest = chemin.getPointUsinesChemin(usines)[1];
+                
+                
                 
                 this.deplacement(g, ptUsineDest, usineChemin[1],usineChemin[0], compSortieUsineDep);
              }
@@ -199,125 +204,170 @@ public class PanneauPrincipal extends JPanel{
              }
          }
          
-         private void reinitializePosComp(Usine usineDep, Composant composant){
-             Point p;
-             if(usineDep instanceof UsineMateriel){
-                 p = new Point(((UsineMateriel)usineDep).getIdentity().getPoint().x, ((UsineMateriel)usineDep).getIdentity().getPoint().y);
-                  if(composant instanceof ComposantAile){
-                      
-                        ((ComposantAile)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMetal){
-                        ((ComposantMetal)composant).setPosition(p);
-                    }else if(composant instanceof ComposantAvion){
-                         ((ComposantAvion)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMoteur){
-                         ((ComposantMoteur)composant).setPosition(p);
-                    }
-             } else if(usineDep instanceof UsineAile){
-                  p = new Point(((UsineAile)usineDep).getIdentity().getPoint().x, ((UsineAile)usineDep).getIdentity().getPoint().y);
-                 if(composant instanceof ComposantAile){
-                        ((ComposantAile)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMetal){
-                        ((ComposantMetal)composant).setPosition(p);
-                    }else if(composant instanceof ComposantAvion){
-                         ((ComposantAvion)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMoteur){
-                         ((ComposantMoteur)composant).setPosition(p);
-                    }
-             } else if(usineDep instanceof UsineMoteur){
-                 p = new Point(((UsineMoteur)usineDep).getIdentity().getPoint().x, ((UsineMoteur)usineDep).getIdentity().getPoint().y);
-                  if(composant instanceof ComposantAile){
-                        ((ComposantAile)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMetal){
-                        ((ComposantMetal)composant).setPosition(p);
-                    }else if(composant instanceof ComposantAvion){
-                         ((ComposantAvion)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMoteur){
-                         ((ComposantMoteur)composant).setPosition(p);
-                    }
-             }else if(usineDep instanceof UsineAssemblage){
-                  p = new Point(((UsineAssemblage)usineDep).getIdentity().getPoint().x, ((UsineAssemblage)usineDep).getIdentity().getPoint().y);
-                 if(composant instanceof ComposantAile){
-                        ((ComposantAile)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMetal){
-                        ((ComposantMetal)composant).setPosition(p);
-                    }else if(composant instanceof ComposantAvion){
-                         ((ComposantAvion)composant).setPosition(p);
-                    }else if(composant instanceof ComposantMoteur){
-                         ((ComposantMoteur)composant).setPosition(p);
-                    }
+        
+         private Boolean getStatusProduction(Usine usine){
+             
+              if(usine instanceof UsineMateriel){
+                 return ((UsineMateriel)usine).getCanProduct();
+             } else if(usine instanceof UsineAile){
+                 return ((UsineAile)usine).getCanProduct();
+             } else if(usine instanceof UsineMoteur){
+                 return ((UsineMoteur)usine).getCanProduct();
+             } else if(usine instanceof UsineAssemblage){
+                 return ((UsineAssemblage)usine).getCanProduct();
+             }
+             return false;
+         
+         }
+         
+         private void setComposantListCompSortie(Usine usine, Composant composant){
+              if(usine instanceof UsineMateriel){
+                 ((UsineMateriel)usine).setlistComposantSorti(composant);
+             } else if(usine instanceof UsineAile){
+                 ((UsineAile)usine).setlistComposantSorti(composant);
+             } else if(usine instanceof UsineMoteur){
+                 ((UsineMoteur)usine).setlistComposantSorti(composant);
+             } else if(usine instanceof UsineAssemblage){
+                 ((UsineAssemblage)usine).setlistComposantSorti(composant);
              }
          }
+         
+         private Composant getCloneComposant(Composant composant){
+              if(composant instanceof ComposantAile){
+                       return (ComposantAile)((ComposantAile)composant).clone();
+                    }else if(composant instanceof ComposantMetal){
+                       return (ComposantMetal)((ComposantMetal)composant).clone();
+                    }else if(composant instanceof ComposantAvion){
+                        return (ComposantAvion)((ComposantAvion)composant).clone();
+                    }else if(composant instanceof ComposantMoteur){
+                        return (ComposantMoteur)((ComposantMoteur)composant).clone();
+                    }
+              return null;
+         }
+         private ArrayList<Composant> getListComposantSorti(Usine usine){
+             
+              if(usine instanceof UsineMateriel){
+                return ((UsineMateriel)usine).getlistComposantSorti();
+             } else if(usine instanceof UsineAile){
+                return ((UsineAile)usine).getlistComposantSorti();
+             } else if(usine instanceof UsineMoteur){
+                return ((UsineMoteur)usine).getlistComposantSorti();
+             } else if(usine instanceof UsineAssemblage){
+                return ((UsineAssemblage)usine).getlistComposantSorti();
+             }
+             return null;
+         }
+         
+         private void setStatusCanProductionUsine(Usine usine){
+              if(usine instanceof UsineMateriel){
+                 ((UsineMateriel)usine).setCanProduct(false);
+             } else if(usine instanceof UsineAile){
+                 ((UsineAile)usine).setCanProduct(false);
+             } else if(usine instanceof UsineMoteur){
+                 ((UsineMoteur)usine).setCanProduct(false);
+             } else if(usine instanceof UsineAssemblage){
+                 ((UsineAssemblage)usine).setCanProduct(false);
+             }
+         }
+         
+         /*private void testDesplacementComposant(Point pointFin, Usine usineDest, Usine usineDep, Composant comp){
+         }*/
          private void deplacement(Graphics g, Point pointFin, Usine usineDest, Usine usineDep, Composant comp){
-             String pathIcon = this.getPathIconComposant(comp);
+             if(this.getStatusProduction(usineDep) == true){
+                 
+                 this.setComposantListCompSortie(usineDep, this.getCloneComposant(comp));
+                 this.setStatusCanProductionUsine(usineDep);
+                 //this.getCloneComposant(comp);
+             }
+             /*String pathIcon = this.getPathIconComposant(comp);
              Point pointDep = this.getPositionComposantSortie(comp);
              int x = pointDep.x, y = pointDep.y;
              if(this.getStatutStartMoveComposantSortie(comp) == false){
                 x = pointDep.x;
                 y = pointDep.y;
                 this.setPositionComposantSortie(comp, new Point(pointDep.x, pointDep.y));
-             }
-            
-             if(this.getPositionComposantSortie(comp).x < pointFin.x &&  this.getPositionComposantSortie(comp).y == pointFin.y){
-                if(!this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
-                   this.getPositionComposantSortie(comp).translate(vitesse.x, 0);
-                   this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(comp));
-                   this.setStatutStartMoveComposantSortie(usineDep,comp, true);
-                }else  if(this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
-                    this.addComposantEntreUsineDest(usineDest, comp);
-                    this.setStatutStartMoveComposantSortie(usineDep, comp, false);
-                    this.reinitializePosComp(usineDep,comp);
+             }*/
+            // ArrayList<Composant> cp = this.getListComposantSorti(usineDep);
+            for (Composant composant: this.getListComposantSorti(usineDep)){
+                String pathIcon = this.getPathIconComposant(composant);
+                Point pointDep = this.getPositionComposantSortie(composant);
+                if(this.getPositionComposantSortie(composant).x < pointFin.x &&  this.getPositionComposantSortie(composant).y == pointFin.y){
+                if(!this.isCollision(this.getPositionComposantSortie(composant), pointFin)){
+                   this.getPositionComposantSortie(composant).translate(vitesse.x, 0);
+                   this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(composant));
+                   //this.setStatutStartMoveComposantSortie(usineDep,comp, true);
+                }else  if(this.isCollision(this.getPositionComposantSortie(composant), pointFin) && 
+                        this.getStatutIsCollisionComposantSortie(composant) == false){
+                    this.setStatusIscollision(composant, true);
+                    this.addComposantEntreUsineDest(usineDest, composant);
+                    //this.setStatutStartMoveComposantSortie(usineDep, comp, false);
+                    //this.reinitializePosComp(usineDep,comp);
                     if(usineDest instanceof Entrepot){
                          this.nbreAvionEntrepot++;
                          
                      }
                 }
-                //this.addComposantSortieUsineDest(usineDest, comp);
-                //this.setStatutStartMoveComposantSortie(comp, true);
-             } else if((this.getPositionComposantSortie(comp).x > pointFin.x) && (this.getPositionComposantSortie(comp).y > pointFin.y)){
+                
+             } else if((this.getPositionComposantSortie(composant).x > pointFin.x) && (this.getPositionComposantSortie(composant).y > pointFin.y)){
                  
-                if(!this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
+                if(!this.isCollision(this.getPositionComposantSortie(composant), pointFin)){
                      
-                   this.getPositionComposantSortie(comp).translate(-vitesse.x, -vitesse.y);
-                   this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(comp));
-                    this.setStatutStartMoveComposantSortie(usineDep,comp, true);
-                }else  if(this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
-                    this.addComposantEntreUsineDest(usineDest, comp);
-                    this.setStatutStartMoveComposantSortie(usineDep,comp, false);
-                     this.reinitializePosComp(usineDep,comp);
+                   this.getPositionComposantSortie(composant).translate(-vitesse.x, -vitesse.y);
+                   this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(composant));
+                   // this.setStatutStartMoveComposantSortie(usineDep,comp, true);
+                }else  if(this.isCollision(this.getPositionComposantSortie(composant), pointFin)&& 
+                        this.getStatutIsCollisionComposantSortie(composant) == false){
+                    this.setStatusIscollision(composant, true);
+                    this.addComposantEntreUsineDest(usineDest, composant);
+                     this.nbrecol++;
+                    if(this.nbrecol == 7){
+                     System.out.println(this.nbrecol);
+                    }
+
+                    //this.setStatutStartMoveComposantSortie(usineDep,comp, false);
+                    // this.reinitializePosComp(usineDep,comp);
+                   
+                    // System.out.println(this.nbrecol);
                      if(usineDest instanceof Entrepot){
                          this.nbreAvionEntrepot++;
                          
                      }
                 }
-             } else if((this.getPositionComposantSortie(comp).x > pointFin.x) && (this.getPositionComposantSortie(comp).y < pointFin.y)){
-                 if(!this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
+             } else if((this.getPositionComposantSortie(composant).x > pointFin.x) && (this.getPositionComposantSortie(composant).y < pointFin.y)){
+                 if(!this.isCollision(this.getPositionComposantSortie(composant), pointFin)){
                      
-                   this.getPositionComposantSortie(comp).translate(-vitesse.x, vitesse.y);
-                   this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(comp));
-                    this.setStatutStartMoveComposantSortie(usineDep,comp, true);
-                }else if(this.isCollision(this.getPositionComposantSortie(comp), pointFin)){
-                    this.addComposantEntreUsineDest(usineDest, comp);
-                    this.setStatutStartMoveComposantSortie(usineDep,comp, false);
-                    this.reinitializePosComp(usineDep,comp);
+                   this.getPositionComposantSortie(composant).translate(-vitesse.x, vitesse.y);
+                   this.setIconComposant(g, pathIcon, this.getPositionComposantSortie(composant));
+                   // this.setStatutStartMoveComposantSortie(usineDep,comp, true);
+                }else if(this.isCollision(this.getPositionComposantSortie(composant), pointFin)&& 
+                        this.getStatutIsCollisionComposantSortie(composant) == false){
+                    this.setStatusIscollision(composant, true);
+                    this.addComposantEntreUsineDest(usineDest, composant);
+                   // this.setStatutStartMoveComposantSortie(usineDep,comp, false);
+                   // this.reinitializePosComp(usineDep,comp);
+                 //   this.nbrecol++;
+                  // System.out.println(this.nbrecol);
                     if(usineDest instanceof Entrepot){
                          this.nbreAvionEntrepot++;
                          
                      }
                 }
-             }
+            
+            }
+            
+          }
          }
-         
          
          private Boolean isCollision(Point pointDep, Point pointFin){
                 //calculateDistanceBetweenPoints(pointDep.x, pointDep.y, pointFin.x,pointFin.y) 
-             if(this.calculateDistanceBetweenPoints(pointDep.x, pointDep.y, pointFin.x,pointFin.y) <= 3){
+             if(this.calculateDistanceBetweenPoints(pointDep.x, pointDep.y, pointFin.x,pointFin.y) <= 2){
                 return true;
              }
              return false;
          }
-         public double calculateDistanceBetweenPoints(double x1, double y1, double x2, double y2) {       
-                return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
+         public int calculateDistanceBetweenPoints(double x1, double y1, double x2, double y2) {
+            // System.out.println(Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1)));
+                return (int)Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
         }
          
          private Composant getComposantUsine(Usine usine){

@@ -6,27 +6,42 @@
 package material;
 
 import java.awt.Point;
+import java.lang.Cloneable;
 
 /**
  *
  * @author Romy Steve
  */
-public class ComposantAile implements Composant {
+public class ComposantAile implements Composant, Cloneable {
     
-    private Boolean startMove = false;
+    private Boolean isCollision = false;
     static int noOfObjects = 0; 
     private Point position;
     private Icon icon;
+   // private Boolean isCollision = 
     
     public ComposantAile(Point p, Icon i){
         noOfObjects++;
         this.position = p;
         this.icon = i;
     }
-    
-     public void setStartMove(Point pt){
-        this.position = pt;
+    @Override
+    public Object clone() {
+        try {
+            ComposantAile c = (ComposantAile) super.clone();
+            c.position = (Point)this.position.clone();
+            return c;
+        } catch (CloneNotSupportedException e) {
+            return new ComposantAile(this.position, this.icon);
+        }
     }
+     public void setIsCollision(Boolean b){
+        this.isCollision = b;
+    }
+     public Boolean getCollision(){
+         return this.isCollision;
+     }
+     
      public void setPosition(Point pt){
         this.position = pt;
     }
@@ -38,13 +53,7 @@ public class ComposantAile implements Composant {
         return this.icon ;
     }
     
-     public void setStartMove(Boolean s){
-        this.startMove = s;
-    }
     
-    public Boolean getStartMove(){
-        return this.startMove;
-    }
     
     
     public void setIcon(Icon icon){
