@@ -2,6 +2,7 @@ package simulation;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.SwingWorker;
 import material.*;
 
@@ -203,32 +204,37 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
           private Boolean testComposantUsineAssemblage(Usine usine){
                int b = ((UsineAssemblage)usine).getComposantEntres().size();
             int nbreAile = 0, nbreMoteur = 0;
-            ArrayList<Integer> tabPos = new ArrayList<Integer>();
-            int pos = 0;
+            Iterator<Composant> itCompEntree = ((UsineAssemblage)usine).getComposantEntres().iterator();
             if(((UsineAssemblage)usine).getComposantEntres().size() >= 6){
                         for(Composant comp: ((UsineAssemblage)usine).getComposantEntres()){
                             if(comp instanceof ComposantAile){
                                 nbreAile++;
-                               tabPos.add(pos);
-                            }
-                            if(comp instanceof ComposantMoteur){
+                            }else if(comp instanceof ComposantMoteur){
                                 nbreMoteur++;
-                                tabPos.add(pos);
                             }
-                            pos++;
-                        }
-                        if(tabPos.size() >= 6 & nbreAile>= 2 & nbreMoteur >= 4){
-                            for(Integer i: tabPos){
-                                ((UsineAssemblage)usine).getComposantEntres().remove(i);
-
+                            if(nbreAile>= 2 && nbreMoteur >= 4){
+                                break;
                             }
                         }
-                        
-                        if(nbreAile >= 2 && nbreMoteur >= 4){
-                                //for()
-                            return true;
-                        }
-                        
+                        if(nbreAile>= 2 && nbreMoteur >= 4){
+                             int nbreM=0, nbreA=0;
+                             while(itCompEntree.hasNext()){
+                                Composant composant = itCompEntree.next();
+                                if(composant instanceof ComposantMoteur && nbreM < 4){
+                                    itCompEntree.remove();
+                                    nbreM++;
+                                } else if(composant instanceof ComposantAile && nbreA < 2){
+                                    itCompEntree.remove();
+                                    nbreA++;
+                                }
+                            }
+                            nbreAile = 0;
+                            nbreMoteur = 0;
+                            
+                             return true;
+                         }
+                             nbreAile = 0;
+                            nbreMoteur = 0;
                     }
             return false;
         }
