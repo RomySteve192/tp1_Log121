@@ -5,9 +5,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 import material.*;
 
 public class PanneauPrincipal extends JPanel {
@@ -110,21 +108,6 @@ public class PanneauPrincipal extends JPanel {
             return ((ComposantMoteur) composant).getCollision();
         }
         return false;
-    }
-
-    private void setStatutIsCollisionComposantSortie(Usine usine, Composant composant, Boolean status) {
-
-        if (usine instanceof UsineMateriel) {
-            this.setStatusIscollision(composant, status);
-        } else if (usine instanceof UsineAile) {
-            this.setStatusIscollision(composant, status);
-        } else if (usine instanceof UsineMoteur) {
-            this.setStatusIscollision(composant, status);
-        }
-        if (usine instanceof UsineAssemblage) {
-            this.setStatusIscollision(composant, status);
-        }
-
     }
 
     private void setStatusIscollision(Composant composant, Boolean status) {
@@ -249,8 +232,6 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
-    /*private void testDesplacementComposant(Point pointFin, Usine usineDest, Usine usineDep, Composant comp){
-         }*/
     private void deplacement(Graphics g, Point pointFin, Usine usineDest, Usine usineDep, Composant comp) {
         if (this.getStatusProduction(usineDep) == true) {
 
