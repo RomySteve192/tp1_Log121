@@ -15,12 +15,10 @@ import java.lang.Cloneable;
 public class ComposantAvion implements Composant, Cloneable {
     
    private Boolean isCollision = false;
-    static int noOfObjects = 0; 
     private Point position;
     private Icon icon;
     
     public ComposantAvion(Point pt, Icon ic){
-        noOfObjects++;
         this.icon = ic;
         this.position = pt;
     }

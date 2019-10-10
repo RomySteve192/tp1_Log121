@@ -11,6 +11,6 @@ package material;
  */
 public interface Usine {
     
-    void setIndEtatUsine(Icon icon);
+    void updateStateUsine();
     
 }

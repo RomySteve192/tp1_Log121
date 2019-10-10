@@ -13,108 +13,110 @@ import java.util.ArrayList;
  * @author Romy Steve
  */
 public class Chemin {
-    
+
     private String de;
     private String vers;
-    
-    public Chemin(String dep, String vers){
+
+    public Chemin(String dep, String vers) {
         this.de = dep;
         this.vers = vers;
     }
-    
-    public Point[] getPointUsinesChemin(ArrayList<Usine> usines){
+
+    public Point[] getPointUsinesChemin(ArrayList<Usine> usines) {
         Point[] ptUsineChemin = new Point[2];
         ptUsineChemin[0] = this.getPointUsine(usines, this.de);
         ptUsineChemin[1] = this.getPointUsine(usines, this.vers);
         return ptUsineChemin;
     }
-    
-    public Usine[] getUsinesChemin(ArrayList<Usine> usines){
+
+    public Usine[] getUsinesChemin(ArrayList<Usine> usines) {
         Usine[] UsineChemin = new Usine[2];
         UsineChemin[0] = this.getUsinePointChemin(usines, this.de);
         UsineChemin[1] = this.getUsinePointChemin(usines, this.vers);
         return UsineChemin;
     }
-    private Usine getUsinePointChemin(ArrayList<Usine> usines, String id){
-        for(Usine usine: usines){
-            if(usine instanceof UsineAile){
-                UsineAile usineAile = (UsineAile)usine;
-                if(id.equals(usineAile.getIdentity().getId())){
+
+    private Usine getUsinePointChemin(ArrayList<Usine> usines, String id) {
+        for (Usine usine : usines) {
+            if (usine instanceof UsineAile) {
+                UsineAile usineAile = (UsineAile) usine;
+                if (id.equals(usineAile.getIdentity().getId())) {
                     return usineAile;
                 }
-            
-            }else if(usine instanceof UsineMateriel){
-                UsineMateriel usineMat = (UsineMateriel)usine;
-                if(id.equals(usineMat.getIdentity().getId())){
+
+            } else if (usine instanceof UsineMateriel) {
+                UsineMateriel usineMat = (UsineMateriel) usine;
+                if (id.equals(usineMat.getIdentity().getId())) {
                     return usineMat;
                 }
-            
-            }else if(usine instanceof UsineMoteur){
-                UsineMoteur usineMo = (UsineMoteur)usine;
-                if(id.equals(usineMo.getIdentity().getId())){
+
+            } else if (usine instanceof UsineMoteur) {
+                UsineMoteur usineMo = (UsineMoteur) usine;
+                if (id.equals(usineMo.getIdentity().getId())) {
                     return usineMo;
                 }
-            
-            }else if(usine instanceof UsineAssemblage){
-                UsineAssemblage usineAss = (UsineAssemblage)usine;
-                if(id.equals(usineAss.getIdentity().getId())){
+
+            } else if (usine instanceof UsineAssemblage) {
+                UsineAssemblage usineAss = (UsineAssemblage) usine;
+                if (id.equals(usineAss.getIdentity().getId())) {
                     return usineAss;
                 }
-            
-            }else if(usine instanceof Entrepot){
-                Entrepot entrepot = (Entrepot)usine;
-                if(id.equals(entrepot.getIdentity().getId())){
+
+            } else if (usine instanceof Entrepot) {
+                Entrepot entrepot = (Entrepot) usine;
+                if (id.equals(entrepot.getIdentity().getId())) {
                     return entrepot;
                 }
             }
         }
         return null;
     }
-    
-    private Point getPointUsine(ArrayList<Usine> usines, String id){
-        
-        for(Usine usine: usines){
-            if(usine instanceof UsineAile){
-                UsineAile usineAile = (UsineAile)usine;
-                if(id.equals(usineAile.getIdentity().getId())){
+
+    private Point getPointUsine(ArrayList<Usine> usines, String id) {
+
+        for (Usine usine : usines) {
+            if (usine instanceof UsineAile) {
+                UsineAile usineAile = (UsineAile) usine;
+                if (id.equals(usineAile.getIdentity().getId())) {
                     return usineAile.getIdentity().getPoint();
                 }
-            
-            }else if(usine instanceof UsineMateriel){
-                UsineMateriel usineMat = (UsineMateriel)usine;
-                if(id.equals(usineMat.getIdentity().getId())){
+
+            } else if (usine instanceof UsineMateriel) {
+                UsineMateriel usineMat = (UsineMateriel) usine;
+                if (id.equals(usineMat.getIdentity().getId())) {
                     return usineMat.getIdentity().getPoint();
                 }
-            
-            }else if(usine instanceof UsineMoteur){
-                UsineMoteur usineMo = (UsineMoteur)usine;
-                if(id.equals(usineMo.getIdentity().getId())){
+
+            } else if (usine instanceof UsineMoteur) {
+                UsineMoteur usineMo = (UsineMoteur) usine;
+                if (id.equals(usineMo.getIdentity().getId())) {
                     return usineMo.getIdentity().getPoint();
                 }
-            
-            }else if(usine instanceof UsineAssemblage){
-                UsineAssemblage usineAss = (UsineAssemblage)usine;
-                if(id.equals(usineAss.getIdentity().getId())){
+
+            } else if (usine instanceof UsineAssemblage) {
+                UsineAssemblage usineAss = (UsineAssemblage) usine;
+                if (id.equals(usineAss.getIdentity().getId())) {
                     return usineAss.getIdentity().getPoint();
                 }
-            
-            }else if(usine instanceof Entrepot){
-                Entrepot entrepot = (Entrepot)usine;
-                if(id.equals(entrepot.getIdentity().getId())){
+
+            } else if (usine instanceof Entrepot) {
+                Entrepot entrepot = (Entrepot) usine;
+                if (id.equals(entrepot.getIdentity().getId())) {
                     return entrepot.getIdentity().getPoint();
                 }
             }
         }
         return null;
     }
-    
-    public String getDep(){
+
+    public String getDep() {
         return this.de;
     }
-    
-    public String getVers(){
+
+    public String getVers() {
         return this.vers;
     }
-    
-    public void deplacerComposantSurChemin(Composant composant){}
+
+    public void deplacerComposantSurChemin(Composant composant) {
+    }
 }

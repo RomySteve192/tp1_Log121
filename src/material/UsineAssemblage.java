@@ -11,77 +11,79 @@ import java.util.ArrayList;
  *
  * @author Romy Steve
  */
-public class UsineAssemblage implements Usine{
-    
+public class UsineAssemblage implements Usine {
+
     private Boolean canProduct = false;
-    public static final Boolean AcompEntre = true; 
     private Identity identity;
     private int intervalleProd;
     private ArrayList<Composant> composantsEntree = new ArrayList<Composant>();
-     private ArrayList<Composant> listComposantsSortie = new ArrayList<Composant>();
+    private ArrayList<Composant> listComposantsSortie = new ArrayList<Composant>();
     private Composant composantSortie;
-    private Boolean isOneTour = false;
     private String iconPrincipal;
-    
-    public UsineAssemblage(Identity id, int intervalProd, Composant compoSortie){
+    private Boolean startTimeProd = true;
+
+    public UsineAssemblage(Identity id, int intervalProd, Composant compoSortie) {
         this.identity = id;
         this.intervalleProd = intervalProd;
         this.composantSortie = compoSortie;
     }
-    
-     public ArrayList<Composant> getlistComposantSorti(){
+
+    public ArrayList<Composant> getlistComposantSorti() {
         return this.listComposantsSortie;
     }
-    
-    public void setlistComposantSorti(Composant comp){
+
+    public void setlistComposantSorti(Composant comp) {
         this.listComposantsSortie.add(comp);
     }
-    
-     public ArrayList<Composant> getComposantEntres(){
+
+    public ArrayList<Composant> getComposantEntres() {
         return this.composantsEntree;
     }
-     
-    public Boolean getCanProduct(){
+
+    public Boolean getCanProduct() {
         return this.canProduct;
     }
-    
-     public void setCanProduct(Boolean b){
+
+    public void setCanProduct(Boolean b) {
         this.canProduct = b;
     }
-    
-    public void setComposantEntres(Composant comp){
+
+    public void setComposantEntres(Composant comp) {
         this.composantsEntree.add(comp);
     }
-    public String getIconPrincipal(){
+
+    public String getIconPrincipal() {
         return this.iconPrincipal;
     }
-    
-    public void setIconPrincipal(String ic){
+
+    public void setIconPrincipal(String ic) {
         this.iconPrincipal = ic;
     }
-    public Identity getIdentity(){
-        return this.identity ;
+
+    public Identity getIdentity() {
+        return this.identity;
     }
-    
-    public Boolean getMessageToUsine(){
-        return this.isOneTour;
-    }
-    
-    public int getIntervalProd(){
+
+    public int getIntervalProd() {
         return this.intervalleProd;
     }
-    
-    public void setMessageToUsine(Boolean oneTour){
-        this.isOneTour = oneTour;
-    }
-    
-    public Composant getComposantSortie(){
+
+    public Composant getComposantSortie() {
         return this.composantSortie;
     }
-    public void setIdentity(Identity iden){
+
+    public void setIdentity(Identity iden) {
         this.identity = iden;
     }
-    public void setIndEtatUsine(Icon icon){
+
+    public Boolean getStartTimeProd() {
+        return this.startTimeProd;
     }
-    
+
+    public void updateStateUsine() {
+        this.canProduct = false;
+        this.startTimeProd = false;
+
+    }
+
 }

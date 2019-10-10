@@ -5,36 +5,34 @@
  */
 package material;
 
-
-
 /**
  *
  * @author Romy Steve
  */
 public class Icon {
-    
+
     private String type;
     private String path;
-    
-    public Icon(String typ, String pat){
+
+    public Icon(String typ, String pat) {
         this.type = typ;
         this.path = pat;
     }
-    
-    public String getPath(){
+
+    public String getPath() {
         return this.path;
     }
-    
-    public void setPath(String pat){
+
+    public void setPath(String pat) {
         this.path = pat;
     }
-    
-    public String getType(){
+
+    public String getType() {
         return this.type;
     }
-    
-    public void setType(String typ){
+
+    public void setType(String typ) {
         this.type = typ;
     }
-    
+
 }

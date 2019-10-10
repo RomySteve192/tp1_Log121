@@ -15,10 +15,11 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
     private int temProdAil = 0;
     private int temProdMo = 0;
     private int temProdAss = 0;
+   // private int temProdMat = 0;
 
     @Override
     protected Object doInBackground() throws Exception {
-        int temp = 0;
+        int temProdMat = 0;
         ArrayList<Usine> listUsine = new ArrayList<Usine>();
         MenuFenetre menuFen = new MenuFenetre();
         ArrayList<Usine> usines = menuFen.getarrListUsine();
@@ -28,17 +29,15 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
             Thread.sleep(DELAI);
 
             if (usines != null) {
-                listUsine = this.testCritereNecessaireProduction(usines, temp);
+                listUsine = this.testCritereNecessaireProduction(usines, temProdMat);
                 item = new Usine[listUsine.size()];
                 for (int i = 0; i < listUsine.size(); i++) {
                     item[i] = listUsine.get(i);
                 }
-                String[] t = {"allo", "allo"};
                 publish(item);
-                temp++;
-                test = temp;
-                if (temp == 113) {
-                    temp = 0;
+                temProdMat+=2;
+                if (temProdMat == 112) {
+                    temProdMat = 0;
                 }
             } else {
                 usines = menuFen.getarrListUsine();
@@ -60,92 +59,117 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
         String str = "";
         for (Usine usine : usines) {
             if (usine instanceof UsineMateriel) {
-                if (temp == 0) {
+                if(((UsineMateriel) usine).getStartTimeProd() == false){
+                    temp = 0;
                     str = ((UsineMateriel) usine).getIdentity().getIcon().get(0).getPath();
                     ((UsineMateriel) usine).setIconPrincipal(str);
-                } else if (temp <= (int) (0.3 * ((UsineMateriel) usine).getIntervalProd())) {
-                    str = ((UsineMateriel) usine).getIdentity().getIcon().get(1).getPath();
-                    ((UsineMateriel) usine).setIconPrincipal(str);
-                } else if (temp > (int) (0.3 * ((UsineMateriel) usine).getIntervalProd())
-                        && temp < (int) ((UsineMateriel) usine).getIntervalProd()) {
-                    str = ((UsineMateriel) usine).getIdentity().getIcon().get(2).getPath();
-                    ((UsineMateriel) usine).setIconPrincipal(str);
-                } else if (temp == (int) ((UsineMateriel) usine).getIntervalProd()) {
-                    str = ((UsineMateriel) usine).getIdentity().getIcon().get(3).getPath();
-                    ((UsineMateriel) usine).setIconPrincipal(str);
-                    ((UsineMateriel) usine).setCanProduct(true);
+                }else{
+                    if (temp == 0) {
+                        str = ((UsineMateriel) usine).getIdentity().getIcon().get(0).getPath();
+                        ((UsineMateriel) usine).setIconPrincipal(str);
+                       // temProdMat++;
+                    } else if (temp <= (int) (0.3 * ((UsineMateriel) usine).getIntervalProd())) {
+                        str = ((UsineMateriel) usine).getIdentity().getIcon().get(1).getPath();
+                        ((UsineMateriel) usine).setIconPrincipal(str);
+                    } else if (temp > (int) (0.3 * ((UsineMateriel) usine).getIntervalProd())
+                            && temp < (int) ((UsineMateriel) usine).getIntervalProd()) {
+                        str = ((UsineMateriel) usine).getIdentity().getIcon().get(2).getPath();
+                        ((UsineMateriel) usine).setIconPrincipal(str);
+                    } else if (temp == (int) ((UsineMateriel) usine).getIntervalProd()) {
+                        str = ((UsineMateriel) usine).getIdentity().getIcon().get(3).getPath();
+                        ((UsineMateriel) usine).setIconPrincipal(str);
+                        ((UsineMateriel) usine).setCanProduct(true);
+                    }
                 }
                 tabPath.add((UsineMateriel) usine);
             } else if (usine instanceof UsineAile) {
-                if (temProdAil == 0) {
+                if(((UsineAile) usine).getStartTimeProd() == false){
+                    temProdAil = 0;
                     str = ((UsineAile) usine).getIdentity().getIcon().get(0).getPath();
                     ((UsineAile) usine).setIconPrincipal(str);
-                    if (this.testComposantUsineAile(usine) == true) {
-                        temProdAil++;
+                }else{
+                    if (temProdAil == 0) {
+                        str = ((UsineAile) usine).getIdentity().getIcon().get(0).getPath();
+                        ((UsineAile) usine).setIconPrincipal(str);
+                        if (this.testComposantUsineAile(usine) == true) {
+                            temProdAil+=2;
+                        }
+                    } else if (temProdAil <= (int) (0.3 * ((UsineAile) usine).getIntervalProd())) {
+                        str = ((UsineAile) usine).getIdentity().getIcon().get(1).getPath();
+                        ((UsineAile) usine).setIconPrincipal(str);
+                    } else if (temProdAil > (int) (0.3 * ((UsineAile) usine).getIntervalProd())
+                            && temProdAil < (int) ((UsineAile) usine).getIntervalProd()) {
+                        str = ((UsineAile) usine).getIdentity().getIcon().get(2).getPath();
+                        ((UsineAile) usine).setIconPrincipal(str);
+                    } else if (temProdAil == (int) ((UsineAile) usine).getIntervalProd()) {
+                        str = ((UsineAile) usine).getIdentity().getIcon().get(3).getPath();
+                        ((UsineAile) usine).setIconPrincipal(str);
+                        ((UsineAile) usine).setCanProduct(true);
+                        temProdAil = 0;
                     }
-                } else if (temProdAil <= (int) (0.3 * ((UsineAile) usine).getIntervalProd())) {
-                    str = ((UsineAile) usine).getIdentity().getIcon().get(1).getPath();
-                    ((UsineAile) usine).setIconPrincipal(str);
-                } else if (temProdAil > (int) (0.3 * ((UsineAile) usine).getIntervalProd())
-                        && temProdAil < (int) ((UsineAile) usine).getIntervalProd()) {
-                    str = ((UsineAile) usine).getIdentity().getIcon().get(2).getPath();
-                    ((UsineAile) usine).setIconPrincipal(str);
-                } else if (temProdAil == (int) ((UsineAile) usine).getIntervalProd()) {
-                    str = ((UsineAile) usine).getIdentity().getIcon().get(3).getPath();
-                    ((UsineAile) usine).setIconPrincipal(str);
-                    ((UsineAile) usine).setCanProduct(true);
-                    temProdAil = 0;
-                }
-                if (temProdAil != 0) {
-                    temProdAil++;
+                    if (temProdAil != 0) {
+                        temProdAil+=2;
+                    }
                 }
                 tabPath.add((UsineAile) usine);
             } else if (usine instanceof UsineMoteur) {
-                if (temProdMo == 0) {
+                if(((UsineMoteur) usine).getStartTimeProd() == false){
+                    temProdMo = 0;
                     str = ((UsineMoteur) usine).getIdentity().getIcon().get(0).getPath();
                     ((UsineMoteur) usine).setIconPrincipal(str);
-                    if (this.testComposantUsineMoteur(usine)) {
-                        temProdMo++;
+                }else{
+                    if (temProdMo == 0) {
+                        str = ((UsineMoteur) usine).getIdentity().getIcon().get(0).getPath();
+                        ((UsineMoteur) usine).setIconPrincipal(str);
+                        if (this.testComposantUsineMoteur(usine)) {
+                            temProdMo+=3;
+                        }
+                    } else if (temProdMo <= (int) (0.3 * ((UsineMoteur) usine).getIntervalProd())) {
+                        str = ((UsineMoteur) usine).getIdentity().getIcon().get(1).getPath();
+                        ((UsineMoteur) usine).setIconPrincipal(str);
+                    } else if (temProdMo > (int) (0.3 * ((UsineMoteur) usine).getIntervalProd())
+                            && temProdMo < (int) ((UsineMoteur) usine).getIntervalProd()) {
+                        str = ((UsineMoteur) usine).getIdentity().getIcon().get(2).getPath();
+                        ((UsineMoteur) usine).setIconPrincipal(str);
+                    } else if (temProdMo == (int) ((UsineMoteur) usine).getIntervalProd()) {
+                        str = ((UsineMoteur) usine).getIdentity().getIcon().get(3).getPath();
+                        ((UsineMoteur) usine).setIconPrincipal(str);
+                        ((UsineMoteur) usine).setCanProduct(true);
+                        temProdMo = 0;
                     }
-                } else if (temProdMo <= (int) (0.3 * ((UsineMoteur) usine).getIntervalProd())) {
-                    str = ((UsineMoteur) usine).getIdentity().getIcon().get(1).getPath();
-                    ((UsineMoteur) usine).setIconPrincipal(str);
-                } else if (temProdMo > (int) (0.3 * ((UsineMoteur) usine).getIntervalProd())
-                        && temProdMo < (int) ((UsineMoteur) usine).getIntervalProd()) {
-                    str = ((UsineMoteur) usine).getIdentity().getIcon().get(2).getPath();
-                    ((UsineMoteur) usine).setIconPrincipal(str);
-                } else if (temProdMo == (int) ((UsineMoteur) usine).getIntervalProd()) {
-                    str = ((UsineMoteur) usine).getIdentity().getIcon().get(3).getPath();
-                    ((UsineMoteur) usine).setIconPrincipal(str);
-                    ((UsineMoteur) usine).setCanProduct(true);
-                    temProdMo = 0;
-                }
-                if (temProdMo != 0) {
-                    temProdMo++;
+                    if (temProdMo != 0) {
+                        temProdMo+=2;
+                    }
                 }
                 tabPath.add((UsineMoteur) usine);
             } else if (usine instanceof UsineAssemblage) {
-                if (temProdAss == 0) {
+                if(((UsineAssemblage) usine).getStartTimeProd() == false){
+                    temProdAss = 0;
                     str = ((UsineAssemblage) usine).getIdentity().getIcon().get(0).getPath();
                     ((UsineAssemblage) usine).setIconPrincipal(str);
-                    if (this.testComposantUsineAssemblage(usine)) {
-                        temProdAss++;
+                }else{
+                    if (temProdAss == 0) {
+                        str = ((UsineAssemblage) usine).getIdentity().getIcon().get(0).getPath();
+                        ((UsineAssemblage) usine).setIconPrincipal(str);
+                        if (this.testComposantUsineAssemblage(usine)) {
+                            temProdAss+=2;
+                        }
+                    } else if (temProdAss <= (int) (0.3 * ((UsineAssemblage) usine).getIntervalProd())) {
+                        str = ((UsineAssemblage) usine).getIdentity().getIcon().get(1).getPath();
+                        ((UsineAssemblage) usine).setIconPrincipal(str);
+                    } else if (temProdAss > (int) (0.3 * ((UsineAssemblage) usine).getIntervalProd())
+                            && temProdAss < (int) ((UsineAssemblage) usine).getIntervalProd()) {
+                        str = ((UsineAssemblage) usine).getIdentity().getIcon().get(2).getPath();
+                        ((UsineAssemblage) usine).setIconPrincipal(str);
+                    } else if (temProdAss == (int) ((UsineAssemblage) usine).getIntervalProd()) {
+                        str = ((UsineAssemblage) usine).getIdentity().getIcon().get(3).getPath();
+                        ((UsineAssemblage) usine).setIconPrincipal(str);
+                        ((UsineAssemblage) usine).setCanProduct(true);
+                        temProdAss = 0;
                     }
-                } else if (temProdAss <= (int) (0.3 * ((UsineAssemblage) usine).getIntervalProd())) {
-                    str = ((UsineAssemblage) usine).getIdentity().getIcon().get(1).getPath();
-                    ((UsineAssemblage) usine).setIconPrincipal(str);
-                } else if (temProdAss > (int) (0.3 * ((UsineAssemblage) usine).getIntervalProd())
-                        && temProdAss < (int) ((UsineAssemblage) usine).getIntervalProd()) {
-                    str = ((UsineAssemblage) usine).getIdentity().getIcon().get(2).getPath();
-                    ((UsineAssemblage) usine).setIconPrincipal(str);
-                } else if (temProdAss == (int) ((UsineAssemblage) usine).getIntervalProd()) {
-                    str = ((UsineAssemblage) usine).getIdentity().getIcon().get(3).getPath();
-                    ((UsineAssemblage) usine).setIconPrincipal(str);
-                    ((UsineAssemblage) usine).setCanProduct(true);
-                    temProdAss = 0;
-                }
-                if (temProdAss != 0) {
-                    temProdAss++;
+                    if (temProdAss != 0) {
+                        temProdAss+=2;
+                    }
                 }
                 tabPath.add((UsineAssemblage) usine);
             }
@@ -154,7 +178,6 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
     }
 
     private Boolean testComposantUsineAile(Usine usine) {
-        int b = ((UsineAile) usine).getComposantEntres().size();
         if (((UsineAile) usine).getComposantEntres().size() >= 2) {
             for (int i = 0; i < 2; i++) {
                 ((UsineAile) usine).getComposantEntres().remove(0);

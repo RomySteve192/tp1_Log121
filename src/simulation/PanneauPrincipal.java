@@ -136,9 +136,7 @@ public class PanneauPrincipal extends JPanel {
     }
 
     private void deplacerLesComposantSurLesChemin(Graphics g, ArrayList<Chemin> chemins, ArrayList<Usine> usines) {
-        int n = 0;
         for (Chemin chemin : chemins) {
-            n++;
             Usine[] usineChemin = chemin.getUsinesChemin(usines);
             Composant compSortieUsineDep = this.getComposantUsine(usineChemin[0]);
             Point ptUsineDest = chemin.getPointUsinesChemin(usines)[1];
@@ -248,9 +246,14 @@ public class PanneauPrincipal extends JPanel {
                 } else if (this.isCollision(this.getPositionComposantSortie(composant), pointFin)
                         && this.getStatutIsCollisionComposantSortie(composant) == false) {
                     this.setStatusIscollision(composant, true);
-                    this.addComposantEntreUsineDest(usineDest, composant);
                     if (usineDest instanceof Entrepot) {
                         this.nbreAvionEntrepot++;
+                        this.addComposantEntreUsineDest(usineDest, composant);
+                        if(((Entrepot)usineDest).getStateEntrepot() == true){
+                            ((Entrepot)usineDest).notifyUsine();
+                        }
+                    }else{
+                        this.addComposantEntreUsineDest(usineDest, composant);
                     }
                 }
 
@@ -263,9 +266,14 @@ public class PanneauPrincipal extends JPanel {
                 } else if (this.isCollision(this.getPositionComposantSortie(composant), pointFin)
                         && this.getStatutIsCollisionComposantSortie(composant) == false) {
                     this.setStatusIscollision(composant, true);
-                    this.addComposantEntreUsineDest(usineDest, composant);
                     if (usineDest instanceof Entrepot) {
                         this.nbreAvionEntrepot++;
+                        this.addComposantEntreUsineDest(usineDest, composant);
+                        if(((Entrepot)usineDest).getStateEntrepot() == true){
+                            ((Entrepot)usineDest).notifyUsine();
+                        }
+                    }else{
+                        this.addComposantEntreUsineDest(usineDest, composant);
                     }
                 }
             } else if ((this.getPositionComposantSortie(composant).x > pointFin.x) && (this.getPositionComposantSortie(composant).y < pointFin.y)) {
@@ -275,9 +283,14 @@ public class PanneauPrincipal extends JPanel {
                 } else if (this.isCollision(this.getPositionComposantSortie(composant), pointFin)
                         && this.getStatutIsCollisionComposantSortie(composant) == false) {
                     this.setStatusIscollision(composant, true);
-                    this.addComposantEntreUsineDest(usineDest, composant);
                     if (usineDest instanceof Entrepot) {
                         this.nbreAvionEntrepot++;
+                        this.addComposantEntreUsineDest(usineDest, composant);
+                        if(((Entrepot)usineDest).getStateEntrepot() == true){
+                            ((Entrepot)usineDest).notifyUsine();
+                        }
+                    }else{
+                        this.addComposantEntreUsineDest(usineDest, composant);
                     }
                 }
 
@@ -314,7 +327,6 @@ public class PanneauPrincipal extends JPanel {
 
     private void setIconEntrepot(Usine usineDest, int nbreAvion) {
         String str;
-        int b = (int) (0.3 * ((Entrepot) usineDest).getCapacity());
         if (usineDest instanceof Entrepot) {
             if (nbreAvion == 0) {
                 str = ((Entrepot) usineDest).getIdentity().getIcon().get(0).getPath();

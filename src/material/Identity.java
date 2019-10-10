@@ -13,41 +13,41 @@ import java.util.ArrayList;
  * @author Romy Steve
  */
 public class Identity {
-    
+
     private String type;
-    private  String id;
+    private String id;
     private Point point = new Point(0, 0);
     private ArrayList<Icon> icons;
-    
-    public Identity(String t, String i, Point p, ArrayList<Icon> ic){
+
+    public Identity(String t, String i, Point p, ArrayList<Icon> ic) {
         this.type = t;
         this.id = i;
         this.point = p;
         this.icons = ic;
     }
-    
-    public Point getPoint(){
+
+    public Point getPoint() {
         return this.point;
     }
-    
-    public void setPoint(Point p){
+
+    public void setPoint(Point p) {
         this.point = p;
     }
-    
-    public String getId(){
+
+    public String getId() {
         return this.id;
     }
-    
-    public String getType(){
+
+    public String getType() {
         return this.type;
     }
-    
-    public ArrayList<Icon> getIcon(){
+
+    public ArrayList<Icon> getIcon() {
         return this.icons;
     }
-    
-    public void setIcon(ArrayList<Icon> ic){
+
+    public void setIcon(ArrayList<Icon> ic) {
         this.icons = ic;
     }
-    
+
 }
