@@ -49,9 +49,6 @@ public class UsineMoteur implements Usine {
     }
 
     public void setComposantEntres(Composant comp) {
-        if (this.composantsEntree.size() == 4) {
-            System.out.println("allo");
-        }
         this.composantsEntree.add(comp);
     }
 
