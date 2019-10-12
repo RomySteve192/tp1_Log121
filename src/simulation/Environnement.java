@@ -6,11 +6,10 @@ import java.util.Iterator;
 import javax.swing.SwingWorker;
 import material.*;
 
-public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>*/> {
+public class Environnement extends SwingWorker<Object, Usine[]> {
 
     private boolean actif = true;
     private static final int DELAI = 25;
-    private static final int TOUR = 1000;
     private int m_delai = 25;
     private int temProdAil = 0;
     private int temProdMo = 0;
@@ -83,10 +82,7 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
                 }
                 tabPath.add((UsineMateriel) usine);
             } else if (usine instanceof Entrepot) {
-                //System.out.print("allo" + m_delai);
                 m_delai = updateDelai((Entrepot) usine);
-                System.out.println("allo" + m_delai);
-
             } else if (usine instanceof UsineAile) {
                 if (((UsineAile) usine).getStartTimeProd() == false) {
                     temProdAil = 0;
@@ -195,7 +191,7 @@ public class Environnement extends SwingWorker<Object, Usine[]/*ArrayList<Usine>
                 return 100;
             }
         }
-        return 0;
+        return 25;
     }
 
     private Boolean testComposantUsineAile(Usine usine) {
