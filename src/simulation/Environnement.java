@@ -6,15 +6,18 @@ import java.util.Iterator;
 import javax.swing.SwingWorker;
 import material.*;
 
+/**
+ *
+ * @author Romy Steve
+ */
 public class Environnement extends SwingWorker<Object, Usine[]> {
 
     private boolean actif = true;
-    private static final int DELAI = 25;
+    //private static final int DELAI = 25;
     private int m_delai = 25;
     private int temProdAil = 0;
     private int temProdMo = 0;
     private int temProdAss = 0;
-    // private int temProdMat = 0;
 
     @Override
     protected Object doInBackground() throws Exception {
@@ -26,7 +29,6 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
 
         while (actif) {
             Thread.sleep(m_delai);
-            //System.out.println("allo" + m_delai);
             if (usines != null) {
                 listUsine = this.testCritereNecessaireProduction(usines, temProdMat);
                 item = new Usine[listUsine.size()];
@@ -49,10 +51,19 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
         return null;
     }
 
+    @Override
     protected void process(List<Usine[]> v) {
-        System.out.print("process() receiving values: " + v.get(0));
+        //System.out.print("process() receiving values: " + v.get(0));
     }
 
+    /**
+     * *
+     * Cette fonction permet mettre à jour l'état de production de chaque usine
+     *
+     * @param ArrayList<Usine> usines
+     * @param int temp
+     * @return ArrayList<Usine>
+     */
     private ArrayList<Usine> testCritereNecessaireProduction(ArrayList<Usine> usines, int temp) {
         ArrayList<Usine> tabPath = new ArrayList<Usine>();
         String str = "";
@@ -82,7 +93,7 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
                 }
                 tabPath.add((UsineMateriel) usine);
             } else if (usine instanceof Entrepot) {
-                m_delai = updateDelai((Entrepot) usine);
+                m_delai = this.updateDelai((Entrepot) usine);
             } else if (usine instanceof UsineAile) {
                 if (((UsineAile) usine).getStartTimeProd() == false) {
                     temProdAil = 0;
@@ -178,6 +189,13 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
         return tabPath;
     }
 
+    /**
+     * *
+     * cette methode permet de mettre à jour le delai de production
+     *
+     * @param Usine usine
+     * @return int
+     */
     private int updateDelai(Usine usine) {
         if (usine instanceof Entrepot) {
             if (((Entrepot) usine).getComposantEntres().size() <= (int) (0.4 * ((Entrepot) usine).getCapacity())) {
@@ -194,6 +212,12 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
         return 25;
     }
 
+    /**
+     * permet d'enlever tous les composants utilisé pour la production d'un aile
+     *
+     * @param Usine usine
+     * @return Boolean
+     */
     private Boolean testComposantUsineAile(Usine usine) {
         if (((UsineAile) usine).getComposantEntres().size() >= 2) {
             for (int i = 0; i < 2; i++) {
@@ -204,6 +228,14 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
         return false;
     }
 
+    /**
+     * *
+     * permet d'enlever tous les composants utilisé pour la production d'un
+     * moteur
+     *
+     * @param Usine usine
+     * @return Boolean
+     */
     private Boolean testComposantUsineMoteur(Usine usine) {
         if (((UsineMoteur) usine).getComposantEntres().size() >= 4) {
             for (int i = 0; i < 4; i++) {
@@ -214,6 +246,14 @@ public class Environnement extends SwingWorker<Object, Usine[]> {
         return false;
     }
 
+    /**
+     * *
+     * permet d'enlever tous les composants utilisé pour la production d'un
+     * avion
+     *
+     * @param Usine usine
+     * @return Boolean
+     */
     private Boolean testComposantUsineAssemblage(Usine usine) {
         int nbreAile = 0, nbreMoteur = 0;
         Iterator<Composant> itCompEntree = ((UsineAssemblage) usine).getComposantEntres().iterator();

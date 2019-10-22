@@ -1,5 +1,6 @@
 package simulation;
 
+import Vente.*;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -8,6 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import material.*;
 
+/**
+ *
+ * @author Romy Steve
+ */
 public class PanneauPrincipal extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -19,6 +24,8 @@ public class PanneauPrincipal extends JPanel {
     private Point vitesse = new Point(2, 2);
     private int taille = 32;
     private int nbreAvionEntrepot = 0;
+
+    public static VenteStrategy venteStra = null;
 
     @Override
     public void paintComponent(Graphics g) {
@@ -38,6 +45,13 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * *
+     * dessine les usines du reseau
+     *
+     * @param Graphics g
+     * @param ArrayList<Usine> usines
+     */
     private void drawUsine(Graphics g, ArrayList<Usine> usines) {
 
         for (Usine usine : usines) {
@@ -69,6 +83,13 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * Obtenir les postions de chaque usine du réseau
+     *
+     * @param ArrayList<Chemin> chemins
+     * @param ArrayList<Usine> usines
+     * @return
+     */
     private ArrayList<Point[]> getPointUsinesOfEachChemin(ArrayList<Chemin> chemins, ArrayList<Usine> usines) {
         ArrayList<Point[]> PtUsinesChemin = new ArrayList<Point[]>();
         for (Chemin chemin : chemins) {
@@ -77,6 +98,14 @@ public class PanneauPrincipal extends JPanel {
         return PtUsinesChemin;
     }
 
+    /**
+     * *
+     * déssine les chemins du reseau
+     *
+     * @param Graphics g
+     * @param ArrayList<Chemin> chemins
+     * @param ArrayList<Usine> usines
+     */
     private void drawChemin(Graphics g, ArrayList<Chemin> chemins, ArrayList<Usine> usines) {
         g.setColor(Color.black);
         for (Point[] tabPointUsine : this.getPointUsinesOfEachChemin(chemins, usines)) {
@@ -84,6 +113,13 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * *
+     * obtenir la postion du composant de sortie
+     *
+     * @param Composant composant
+     * @return Point
+     */
     private Point getPositionComposantSortie(Composant composant) {
         if (composant instanceof ComposantAile) {
             return ((ComposantAile) composant).getPosition();
@@ -97,6 +133,13 @@ public class PanneauPrincipal extends JPanel {
         return null;
     }
 
+    /**
+     * permet d'obtenir le statut de collision entre un composant et l'usine si
+     * True collision si False pas collision
+     *
+     * @param Composant composant
+     * @return
+     */
     private Boolean getStatutIsCollisionComposantSortie(Composant composant) {
         if (composant instanceof ComposantAile) {
             return ((ComposantAile) composant).getCollision();
@@ -110,6 +153,12 @@ public class PanneauPrincipal extends JPanel {
         return false;
     }
 
+    /**
+     * mettre le status de collision sur un composant
+     *
+     * @param Composant composant
+     * @param Boolean status
+     */
     private void setStatusIscollision(Composant composant, Boolean status) {
         if (composant instanceof ComposantAile) {
             ((ComposantAile) composant).setIsCollision(status);
@@ -122,6 +171,12 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * obtenir le chemin de le l'icon d'un composant
+     *
+     * @param Composant composant
+     * @return String
+     */
     private String getPathIconComposant(Composant composant) {
         if (composant instanceof ComposantAile) {
             return ((ComposantAile) composant).getIcon().getPath();
@@ -135,6 +190,13 @@ public class PanneauPrincipal extends JPanel {
         return null;
     }
 
+    /**
+     * permet de déplacer le composant sur le chemin
+     *
+     * @param Graphics g
+     * @param ArrayList<Chemin> chemins
+     * @param ArrayList<Usine> usines
+     */
     private void deplacerLesComposantSurLesChemin(Graphics g, ArrayList<Chemin> chemins, ArrayList<Usine> usines) {
         for (Chemin chemin : chemins) {
             Usine[] usineChemin = chemin.getUsinesChemin(usines);
@@ -145,11 +207,25 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * permet de placer l'icon d'un composant
+     *
+     * @param Graphics g
+     * @param String pathIcon
+     * @param Point pointDep
+     */
     private void setIconComposant(Graphics g, String pathIcon, Point pointDep) {
         ImageIcon icon = new ImageIcon(pathIcon);
         icon.paintIcon(this, g, pointDep.x - CONSTANT_X, pointDep.y - CONSTANT_Y);
     }
 
+    /**
+     * permet de placer le composant dans la liste des composants d'entrées de
+     * l'usine de destination
+     *
+     * @param Usine usineDest
+     * @param Composant comp
+     */
     private void addComposantEntreUsineDest(Usine usineDest, Composant comp) {
         if (usineDest instanceof UsineAile) {
             ((UsineAile) usineDest).setComposantEntres(comp);
@@ -164,6 +240,12 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * obtenir le statut de production de l'usine
+     *
+     * @param Usine usine
+     * @return
+     */
     private Boolean getStatusProduction(Usine usine) {
 
         if (usine instanceof UsineMateriel) {
@@ -179,6 +261,11 @@ public class PanneauPrincipal extends JPanel {
 
     }
 
+    /**
+     *
+     * @param Usine usine
+     * @param Composant composant
+     */
     private void setComposantListCompSortie(Usine usine, Composant composant) {
         if (usine instanceof UsineMateriel) {
             ((UsineMateriel) usine).setlistComposantSorti(composant);
@@ -191,6 +278,12 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * obtenir le clone d'un composant
+     *
+     * @param Composant composant
+     * @return Composant
+     */
     private Composant getCloneComposant(Composant composant) {
         if (composant instanceof ComposantAile) {
             return (ComposantAile) ((ComposantAile) composant).clone();
@@ -204,6 +297,12 @@ public class PanneauPrincipal extends JPanel {
         return null;
     }
 
+    /**
+     * obtenir la liste des composants de sortie d'une usine
+     *
+     * @param Usine usine
+     * @return ArrayList<Composant>
+     */
     private ArrayList<Composant> getListComposantSorti(Usine usine) {
 
         if (usine instanceof UsineMateriel) {
@@ -218,6 +317,11 @@ public class PanneauPrincipal extends JPanel {
         return null;
     }
 
+    /**
+     * mettre le statut de production d'une usine
+     *
+     * @param Usine usine
+     */
     private void setStatusCanProductionUsine(Usine usine) {
         if (usine instanceof UsineMateriel) {
             ((UsineMateriel) usine).setCanProduct(false);
@@ -230,11 +334,26 @@ public class PanneauPrincipal extends JPanel {
         }
     }
 
+    /**
+     * deplacer le composant d'une usine de départ vers une usine de destination
+     *
+     * @param Graphics g
+     * @param Point pointFin
+     * @param Usine usineDest
+     * @param Usine usineDep
+     * @param Composant comp
+     */
     private void deplacement(Graphics g, Point pointFin, Usine usineDest, Usine usineDep, Composant comp) {
         if (this.getStatusProduction(usineDep) == true) {
 
             this.setComposantListCompSortie(usineDep, this.getCloneComposant(comp));
             this.setStatusCanProductionUsine(usineDep);
+        }
+        if (venteStra instanceof VenteIntvalFixeStrategy) {
+            if (usineDest instanceof Entrepot) {
+                this.venteAvion(new VenteIntvalFixeStrategy(((Entrepot) usineDest).getComposantEntres(), 4),
+                        (Entrepot) usineDest);
+            }
         }
         for (Composant composant : this.getListComposantSorti(usineDep)) {
             String pathIcon = this.getPathIconComposant(composant);
@@ -249,10 +368,10 @@ public class PanneauPrincipal extends JPanel {
                     if (usineDest instanceof Entrepot) {
                         this.nbreAvionEntrepot++;
                         this.addComposantEntreUsineDest(usineDest, composant);
-                        if(((Entrepot)usineDest).getStateEntrepot() == true){
-                            ((Entrepot)usineDest).notifyUsine();
+                        if (((Entrepot) usineDest).getStateEntrepot() == true) {
+                            ((Entrepot) usineDest).notifyUsine(false);
                         }
-                    }else{
+                    } else {
                         this.addComposantEntreUsineDest(usineDest, composant);
                     }
                 }
@@ -269,10 +388,10 @@ public class PanneauPrincipal extends JPanel {
                     if (usineDest instanceof Entrepot) {
                         this.nbreAvionEntrepot++;
                         this.addComposantEntreUsineDest(usineDest, composant);
-                        if(((Entrepot)usineDest).getStateEntrepot() == true){
-                            ((Entrepot)usineDest).notifyUsine();
+                        if (((Entrepot) usineDest).getStateEntrepot() == true) {
+                            ((Entrepot) usineDest).notifyUsine(false);
                         }
-                    }else{
+                    } else {
                         this.addComposantEntreUsineDest(usineDest, composant);
                     }
                 }
@@ -286,10 +405,10 @@ public class PanneauPrincipal extends JPanel {
                     if (usineDest instanceof Entrepot) {
                         this.nbreAvionEntrepot++;
                         this.addComposantEntreUsineDest(usineDest, composant);
-                        if(((Entrepot)usineDest).getStateEntrepot() == true){
-                            ((Entrepot)usineDest).notifyUsine();
+                        if (((Entrepot) usineDest).getStateEntrepot() == true) {
+                            ((Entrepot) usineDest).notifyUsine(false);
                         }
-                    }else{
+                    } else {
                         this.addComposantEntreUsineDest(usineDest, composant);
                     }
                 }
@@ -306,10 +425,25 @@ public class PanneauPrincipal extends JPanel {
         return false;
     }
 
+    /**
+     * calcul la collision
+     *
+     * @param double x1
+     * @param double y1
+     * @param double x2
+     * @param double y2
+     * @return int
+     */
     public int calculateDistanceBetweenPoints(double x1, double y1, double x2, double y2) {
         return (int) Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
     }
 
+    /**
+     * obtenir le composant de sortie de l'usine
+     *
+     * @param Usine usine
+     * @return Composant
+     */
     private Composant getComposantUsine(Usine usine) {
         if (usine instanceof UsineMateriel) {
             return ((UsineMateriel) usine).getComposantSortie();
@@ -325,6 +459,29 @@ public class PanneauPrincipal extends JPanel {
         return null;
     }
 
+    /**
+     * permet de ventre les avions
+     *
+     * @param VenteStrategy venteStra
+     * @param Entrepot entrepot
+     */
+    private void venteAvion(VenteStrategy venteStra, Entrepot entrepot) {
+        String str;
+
+        if (venteStra.vente()) {
+            str = entrepot.getIdentity().getIcon().get(0).getPath();
+            entrepot.setIconPrincipal(str);
+            this.nbreAvionEntrepot=0;
+            entrepot.notifyUsine(true);
+        }
+    }
+
+    /**
+     * mettre a jour l'état de l'entrepot
+     *
+     * @param Usine usineDest
+     * @param int nbreAvion
+     */
     private void setIconEntrepot(Usine usineDest, int nbreAvion) {
         String str;
         if (usineDest instanceof Entrepot) {

@@ -11,6 +11,10 @@ package material;
  */
 public interface Usine {
     
-    void updateStateUsine();
+    /**
+     * met à jour l'état de production de l'usine
+     * @param Boolean flag
+     */
+    void updateStateUsine(Boolean flag);
     
 }

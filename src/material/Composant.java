@@ -10,5 +10,9 @@ package material;
  * @author Romy Steve
  */
 public interface Composant {
-    void deplacer();
+
+    /**
+     *
+     */
+    void setIcon(Icon icon);
 }

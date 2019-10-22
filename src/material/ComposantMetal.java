@@ -9,7 +9,7 @@ import java.awt.Point;
 import java.lang.Cloneable;
 
 /**
- *
+ * Cette classe représente le Composant métal
  * @author Romy Steve
  */
 public class ComposantMetal implements Composant, Cloneable {
@@ -18,6 +18,11 @@ public class ComposantMetal implements Composant, Cloneable {
     private Point position;
     private Icon icon;
 
+    /**
+     *
+     * @param Point pt
+     * @param Icon ic
+     */
     public ComposantMetal(Point pt, Icon ic) {
         this.icon = ic;
         this.position = pt;
@@ -34,31 +39,51 @@ public class ComposantMetal implements Composant, Cloneable {
         }
     }
 
+    /**
+     *
+     * @param Boolean b
+     */
     public void setIsCollision(Boolean b) {
         this.isCollision = b;
     }
 
+    /**
+     *
+     * @return Boolean
+     */
     public Boolean getCollision() {
         return this.isCollision;
     }
 
+    /**
+     *
+     * @return Icon
+     */
     public Icon getIcon() {
         return this.icon;
     }
 
+    /**
+     *
+     * @param Point pt
+     */
     public void setPosition(Point pt) {
         this.position = pt;
     }
 
+    /**
+     *
+     * @return Point
+     */
     public Point getPosition() {
         return this.position;
     }
 
+    /**
+     *
+     * @param Icon icon
+     */
     public void setIcon(Icon icon) {
         this.icon = icon;
-    }
-
-    public void deplacer() {
-
     }
 }

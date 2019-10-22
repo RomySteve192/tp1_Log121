@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Vente;
+
 import material.*;
 
 /**
@@ -11,5 +12,10 @@ import material.*;
  * @author Romy Steve
  */
 public interface VenteStrategy {
+
+    /**
+     *
+     * @return Boolean
+     */
     Boolean vente();
 }

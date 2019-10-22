@@ -8,7 +8,7 @@ package material;
 import java.util.ArrayList;
 
 /**
- *
+ * Cette classe permet de représenter l'usine de production des ailes
  * @author Romy Steve
  */
 public class UsineAile implements Usine {
@@ -23,68 +23,133 @@ public class UsineAile implements Usine {
 
     private Boolean startTimeProd = true;
 
+    /**
+     *
+     * @param Identity id
+     * @param int intervalProd
+     * @param Composant compoSortie
+     */
     public UsineAile(Identity id, int intervalProd, Composant compoSortie) {
         this.identity = id;
         this.intervalleProd = intervalProd;
         this.composantSortie = compoSortie;
     }
 
+    /**
+     *
+     * @return Boolean
+     */
     public Boolean getCanProduct() {
         return this.canProduct;
     }
 
+    /**
+     *
+     * @param Boolean b
+     */
     public void setCanProduct(Boolean b) {
         this.canProduct = b;
     }
 
+    /**
+     *
+     * @return ArrayList<Composant>
+     */
     public ArrayList<Composant> getlistComposantSorti() {
         return this.listComposantsSortie;
     }
 
+    /**
+     * Ajouter un composant dans la liste des composant de sortie
+     *
+     * @param Composant comp
+     */
     public void setlistComposantSorti(Composant comp) {
         this.listComposantsSortie.add(comp);
     }
 
+    /**
+     *
+     * @return ArrayList<Composant>
+     */
     public ArrayList<Composant> getComposantEntres() {
         return this.composantsEntree;
     }
 
+    /**
+     * Ajouter les composants d'entrés de l'usine
+     *
+     * @param Composant comp
+     */
     public void setComposantEntres(Composant comp) {
         this.composantsEntree.add(comp);
     }
 
+    /**
+     *
+     * @return
+     */
     public String getIconPrincipal() {
         return this.iconPrincipal;
     }
 
+    /**
+     *
+     * @param String ic
+     */
     public void setIconPrincipal(String ic) {
         this.iconPrincipal = ic;
     }
 
+    /**
+     *
+     * @return int
+     */
     public int getIntervalProd() {
         return this.intervalleProd;
     }
 
+    /**
+     *
+     * @return Identity
+     */
     public Identity getIdentity() {
         return this.identity;
     }
 
+    /**
+     * retourne le composant de sortie produit par l'usine
+     *
+     * @return Composant
+     */
     public Composant getComposantSortie() {
         return this.composantSortie;
     }
 
+    /**
+     *
+     * @param Identity iden
+     */
     public void setIdentity(Identity iden) {
         this.identity = iden;
     }
 
+    /**
+     *
+     * @return Boolean
+     */
     public Boolean getStartTimeProd() {
         return this.startTimeProd;
     }
 
-    public void updateStateUsine() {
-        this.canProduct = false;
-        this.startTimeProd = false;
-
+    /**
+     * mettre à jour l'état de production de l'usine
+     *
+     * @param Boolean flag
+     */
+    public void updateStateUsine(Boolean flag) {
+        this.canProduct = flag;
+        this.startTimeProd = flag;
     }
 
 }

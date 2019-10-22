@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Vente;
+
 import java.util.ArrayList;
 import material.*;
 
@@ -12,23 +13,35 @@ import material.*;
  * @author Romy Steve
  */
 public class VenteIntvalFixeStrategy implements VenteStrategy {
-    
-    private ArrayList<ComposantAvion> listAvion;
+
+    private ArrayList<Composant> listAvion;
     private int nbLimiteAvionAVend;
-    
-    
-    public VenteIntvalFixeStrategy(ArrayList<ComposantAvion> avions, int nbreAvion){
+
+    /**
+     *
+     * @param avions
+     * @param nbreAvion
+     */
+    public VenteIntvalFixeStrategy(ArrayList<Composant> avions, int nbreAvion) {
         this.listAvion = avions;
         this.nbLimiteAvionAVend = nbreAvion;
     }
-     
+
+    /**
+     *
+     * @return Boolean
+     */
     @Override
-    public Boolean vente(){
-        if(this.listAvion.size() == this.nbLimiteAvionAVend){
+    public Boolean vente() {
+       // String str;
+        if (this.listAvion.size() >= this.nbLimiteAvionAVend) {
+            this.listAvion.remove(0);
+            this.listAvion.remove(0);
+            this.listAvion.remove(0);
             this.listAvion.remove(0);
             return true;
         }
         return false;
     }
-    
+
 }

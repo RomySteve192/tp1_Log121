@@ -21,6 +21,7 @@ import material.*;
 import org.xml.sax.SAXException;
 
 /**
+ * cette classe permet de lire dans le fichier xml
  *
  * @author Romy Steve
  */
@@ -31,6 +32,13 @@ public class XmlReader {
     private DocumentBuilder dBuilder;
     private Document doc;
 
+    /**
+     *
+     * @param pathFileName
+     * @throws SAXException
+     * @throws IOException
+     * @throws ParserConfigurationException
+     */
     public XmlReader(String pathFileName) throws SAXException,
             IOException, ParserConfigurationException {
         this.xmlFile = new File(pathFileName);
@@ -40,6 +48,13 @@ public class XmlReader {
         this.doc.getDocumentElement().normalize();
     }
 
+    /**
+     *
+     * @param element
+     * @param point
+     * @param typeUsine
+     * @return
+     */
     private Composant getComposantSortie(Element element, Point point, String typeUsine) {
         //Element elem1 =  (Element)element.getElementsByTagName("sortie").item(0);
 
@@ -72,6 +87,12 @@ public class XmlReader {
         return null;
     }
 
+    /**
+     * *
+     *
+     * @param element
+     * @return ArrayList<Icon>
+     */
     private ArrayList<Icon> getArrListIcon(Element element) {
         Element elem1 = (Element) element.getElementsByTagName("icones").item(0);
         NodeList listIconUsine = elem1.getElementsByTagName("icone");
@@ -87,6 +108,13 @@ public class XmlReader {
         return listObjectIcon;
     }
 
+    /**
+     * obtenir la liste des icones d'usine
+     *
+     * @param element
+     * @param typeUsine
+     * @return ArrayList<Icon>
+     */
     private ArrayList<Icon> getarrListIconUsine(Element element, String typeUsine) {
 
         NodeList listTypeObjectUsine = element.getElementsByTagName("usine");
@@ -104,6 +132,10 @@ public class XmlReader {
         return null;
     }
 
+    /**
+     *
+     * @return ArrayList<Chemin>
+     */
     public ArrayList<Chemin> getListCheminReseau() {
         Element Element1, Element2;
         ArrayList<Chemin> arrListChemin = new ArrayList<Chemin>();
@@ -124,6 +156,10 @@ public class XmlReader {
         return arrListChemin;
     }
 
+    /**
+     *
+     * @return ArrayList<Usine>
+     */
     public ArrayList<Usine> getListUsineReseau() {
         Element element = (Element) doc.getElementsByTagName("simulation").item(0);
         NodeList listUsineReseau = element.getElementsByTagName("usine");
@@ -134,7 +170,7 @@ public class XmlReader {
             if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                 Element elem = (Element) nNode;
                 listObjectUsine.add(this.createOjectUsine(elem.getAttribute("type"), elem.getAttribute("id"),
-                         elem.getAttribute("x"), elem.getAttribute("y")));
+                        elem.getAttribute("x"), elem.getAttribute("y")));
             }
         }
 
@@ -151,6 +187,15 @@ public class XmlReader {
         return listObjectUsine;
     }
 
+    /**
+     * permet de créer les objet de classe usine
+     *
+     * @param String type
+     * @param String id
+     * @param String x
+     * @param String y
+     * @return Usine
+     */
     private Usine createOjectUsine(String type, String id, String x, String y) {
         Element mainElement1 = (Element) doc.getElementsByTagName("metadonnees").item(0);
         Point point = new Point(Integer.valueOf(x), Integer.valueOf(y));
